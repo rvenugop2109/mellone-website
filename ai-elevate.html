@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Elevate | Mellone</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- AI ELEVATE — Deep Blue hero, Mid Blue accent ---- */
+    .course-hero {
+      background: var(--deep-blue);
+      position: relative;
+      overflow: hidden;
+    }
+    .course-hero::before { content:''; position:absolute; top:-100px; right:-60px; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,0.07) 0%,transparent 70%); pointer-events:none; }
+    .course-hero::after  { content:''; position:absolute; bottom:0; left:20%; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle,rgba(26,26,180,0.3) 0%,transparent 70%); pointer-events:none; }
+
+    .hero-inner { display:grid; grid-template-columns:1fr 380px; gap:56px; align-items:end; position:relative; z-index:1; max-width:var(--max-width); margin:0 auto; padding:72px 64px 0; }
+    .hero-left { padding-bottom:56px; }
+
+    .course-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:5px 14px; margin-bottom:20px; }
+    .cb-num { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,0.7); }
+    .cb-dot { width:4px; height:4px; border-radius:50%; background:var(--pale-blue); }
+    .cb-cat { font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,0.5); }
+
+    .hero-title   { font-size:clamp(42px,5.5vw,60px); font-weight:800; color:white; letter-spacing:-.03em; line-height:1.04; margin-bottom:8px; }
+    .hero-subtitle { font-size:20px; font-weight:400; color:var(--pale-blue); margin-bottom:20px; letter-spacing:-.01em; }
+    .hero-body    { font-size:16px; color:rgba(255,255,255,0.65); line-height:1.72; max-width:500px; margin-bottom:32px; }
+    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+
+    .hero-card { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:16px 16px 0 0; padding:32px 28px; display:flex; flex-direction:column; gap:18px; }
+    .hc-row { display:flex; justify-content:space-between; align-items:flex-start; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .hc-row:last-child { border-bottom:none; padding-bottom:0; }
+    .hc-label { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:5px; }
+    .hc-value { font-size:14px; font-weight:600; color:white; }
+    .hc-sub   { font-size:12px; color:rgba(255,255,255,0.45); margin-top:2px; }
+    .hc-tag   { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:20px; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--pale-blue); padding:4px 10px; }
+
+    /* SHARED */
+    .page-section   { padding:80px 64px; max-width:var(--max-width); margin:0 auto; }
+    .page-section--alt { padding:80px 64px; background:var(--off-white); }
+    .page-section--alt .section-inner { max-width:var(--max-width); margin:0 auto; }
+    .section-intro  { max-width:640px; margin-bottom:44px; }
+    .section-intro h2 { margin-bottom:12px; }
+
+    /* WHO */
+    .who-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+    .persona-cards { display:flex; flex-direction:column; gap:10px; margin-top:8px; }
+    .persona-card { display:flex; gap:14px; align-items:flex-start; padding:18px 20px; border-radius:var(--radius-lg); border:1px solid var(--border); background:var(--off-white); }
+    .pc-icon { font-size:24px; flex-shrink:0; }
+    .pc-title { font-size:14px; font-weight:700; color:var(--dark-navy); margin-bottom:3px; }
+    .pc-desc  { font-size:13px; color:var(--mid-gray); line-height:1.5; }
+
+    .not-for-box { background:var(--off-white); border-radius:var(--radius-lg); border:1px solid var(--border); padding:24px; margin-bottom:14px; }
+    .nf-title    { font-size:13px; font-weight:700; color:var(--dark-navy); margin-bottom:14px; }
+    .nf-item     { display:flex; gap:8px; font-size:13px; color:var(--mid-gray); line-height:1.5; margin-bottom:10px; }
+    .nf-item:last-child { margin-bottom:0; }
+    .nf-item::before { content:'✗'; color:#CC3344; font-weight:700; flex-shrink:0; }
+    .prereq-box  { background:var(--deep-blue); border-radius:var(--radius-lg); padding:20px 24px; }
+    .prereq-title { font-size:13px; font-weight:700; color:white; margin-bottom:8px; }
+    .prereq-desc  { font-size:13px; color:rgba(255,255,255,0.65); line-height:1.55; }
+
+    /* CURRICULUM CLUSTERS */
+    .clusters { display:flex; flex-direction:column; gap:14px; }
+    .cluster { border-radius:var(--radius-lg); border:1px solid var(--border); background:white; overflow:hidden; }
+    .cluster-header { padding:18px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); }
+    .cluster-header-left { display:flex; align-items:center; gap:14px; }
+    .cluster-icon  { font-size:22px; }
+    .cluster-label { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; margin-bottom:3px; }
+    .cluster-name  { font-size:16px; font-weight:700; color:var(--dark-navy); }
+    .cluster-count { font-size:11px; font-weight:600; color:var(--mid-gray); background:var(--off-white); border:1px solid var(--border); border-radius:20px; padding:3px 10px; }
+    .cluster-chapters { padding:14px 24px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .chapter-pill { display:flex; align-items:flex-start; gap:8px; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--off-white); }
+    .ch-num  { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--pale-blue); flex-shrink:0; margin-top:2px; }
+    .ch-name { font-size:12px; font-weight:600; color:var(--dark-navy); line-height:1.4; }
+
+    .cluster-a .cluster-header { background:rgba(26,26,230,0.03); }
+    .cluster-a .cluster-label  { color:var(--deep-blue); }
+    .cluster-b .cluster-header { background:rgba(51,51,204,0.03); }
+    .cluster-b .cluster-label  { color:var(--mid-blue); }
+    .cluster-c .cluster-header { background:rgba(123,123,232,0.04); }
+    .cluster-c .cluster-label  { color:var(--periwinkle); }
+    .cluster-d .cluster-header { background:rgba(26,26,180,0.04); }
+    .cluster-d .cluster-label  { color:var(--mid-blue); }
+    .cluster-e .cluster-header { background:rgba(28,28,46,0.04); }
+    .cluster-e .cluster-label  { color:var(--dark-navy); }
+
+    /* OUTCOMES */
+    .outcomes-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+    .outcome-list  { display:flex; flex-direction:column; gap:10px; }
+    .outcome-item  { display:flex; gap:14px; align-items:flex-start; background:var(--off-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; }
+    .oi-num  { width:26px; height:26px; border-radius:50%; background:var(--deep-blue); color:white; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .oi-title { font-size:13px; font-weight:700; color:var(--dark-navy); margin-bottom:2px; }
+    .oi-desc  { font-size:12px; color:var(--mid-gray); line-height:1.5; }
+    .outcomes-right { display:flex; flex-direction:column; gap:14px; }
+
+    .stream-callout { background:var(--off-white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; }
+    .sc-title { font-size:13px; font-weight:700; color:var(--dark-navy); margin-bottom:8px; }
+    .sc-desc  { font-size:13px; color:var(--mid-gray); line-height:1.55; margin-bottom:12px; }
+    .sc-streams { display:flex; flex-wrap:wrap; gap:6px; }
+    .sc-stream { font-size:11px; font-weight:600; color:var(--mid-blue); background:rgba(51,51,204,0.07); border:1px solid rgba(51,51,204,0.15); padding:4px 10px; border-radius:20px; }
+
+    .tools-box { background:var(--dark-navy); border-radius:var(--radius-lg); padding:26px; }
+    .tb-label  { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:12px; }
+    .tb-chips  { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+    .tb-chip   { background:rgba(255,255,255,0.10); color:rgba(255,255,255,0.75); font-size:11px; font-weight:600; padding:4px 11px; border-radius:10px; }
+    .tb-note   { font-size:11px; color:rgba(255,255,255,0.32); font-style:italic; }
+
+    .capstone-box { background:white; border:1.5px solid var(--deep-blue); border-radius:var(--radius-lg); padding:24px; }
+    .cb-title { font-size:14px; font-weight:700; color:var(--dark-navy); margin-bottom:8px; }
+    .cb-desc  { font-size:13px; color:var(--mid-gray); line-height:1.6; margin-bottom:12px; }
+    .cb-cert  { display:flex; align-items:center; gap:8px; background:var(--off-white); border-radius:var(--radius-md); padding:10px 14px; font-size:12px; font-weight:600; color:var(--mid-blue); }
+
+    /* INTEREST FORM */
+    .interest-section { background:var(--deep-blue); padding:80px 64px; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; position:relative; overflow:hidden; }
+    .interest-section::before { content:''; position:absolute; top:-100px; right:-80px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%); }
+
+    .int-left { position:relative; z-index:1; }
+    .int-eyebrow { font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--pale-blue); margin-bottom:14px; display:block; }
+    .int-h2   { font-size:clamp(26px,3vw,36px); font-weight:800; color:white; letter-spacing:-.02em; line-height:1.15; margin-bottom:16px; }
+    .int-body { font-size:15px; color:rgba(255,255,255,0.62); line-height:1.72; margin-bottom:28px; }
+    .int-bullets { display:flex; flex-direction:column; gap:10px; }
+    .int-bullet { display:flex; gap:10px; align-items:flex-start; font-size:13px; color:rgba(255,255,255,0.65); line-height:1.5; }
+    .int-bullet::before { content:'✓'; color:var(--pale-blue); font-weight:700; flex-shrink:0; margin-top:1px; }
+
+    .int-form { background:white; border-radius:var(--radius-xl); padding:36px 32px; position:relative; z-index:1; display:flex; flex-direction:column; gap:16px; }
+    .form-title    { font-size:18px; font-weight:700; color:var(--dark-navy); margin-bottom:4px; }
+    .form-subtitle { font-size:13px; color:var(--mid-gray); margin-bottom:8px; }
+    .form-row  { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-label { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--mid-gray); }
+    .form-input, .form-select { font-family:'Sora',sans-serif; font-size:13px; color:var(--dark-navy); border:1.5px solid var(--border); border-radius:var(--radius-md); padding:10px 14px; background:var(--off-white); outline:none; width:100%; appearance:none; }
+    .form-input:focus, .form-select:focus { border-color:var(--deep-blue); background:white; }
+    .form-submit { background:var(--deep-blue); color:white; font-family:'Sora',sans-serif; font-size:14px; font-weight:700; padding:14px; border-radius:var(--radius-md); border:none; cursor:pointer; width:100%; margin-top:4px; transition:background .15s; }
+    .form-submit:hover { background:var(--mid-blue); }
+    .form-privacy { font-size:11px; color:var(--mid-gray); text-align:center; line-height:1.5; }
+
+    /* Phone row */
+    .phone-row { display:grid; grid-template-columns:140px 1fr; gap:10px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns:1fr; padding:56px 40px 0; gap:40px; }
+      .hero-card { border-radius:var(--radius-xl); }
+      .hero-left { padding-bottom:0; }
+      .who-grid, .outcomes-grid { grid-template-columns:1fr; gap:32px; }
+      .cluster-chapters { grid-template-columns:1fr; }
+      .interest-section { grid-template-columns:1fr; padding:64px 40px; }
+      .page-section, .page-section--alt { padding:64px 40px; }
+    }
+    @media (max-width: 768px) {
+      .hero-inner { padding:40px 20px 0; }
+      .cluster-chapters { grid-template-columns:1fr; }
+      .page-section, .page-section--alt { padding:56px 20px; }
+      .interest-section { padding:56px 20px; }
+      .form-row { grid-template-columns:1fr; }
+      .phone-row { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo"><img src="assets/FullLogo_NoBuffer.png" alt="Mellone" /></a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">Services<svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="consulting.html" class="nav-dropdown-item">Consulting</a>
+          <a href="training.html" class="nav-dropdown-item">Training</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">Products<svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="ai-nexus.html" class="nav-dropdown-item">AI Nexus</a>
+          <a href="ai-launchpad.html" class="nav-dropdown-item">AI Launchpad</a>
+          <a href="ai-elevate.html" class="nav-dropdown-item">AI Elevate</a>
+          <a href="https://campuslogix.in/" class="nav-dropdown-item" target="_blank" rel="noopener">For Colleges ↗</a>
+        </div>
+      </div>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-right"><a href="contact.html" class="nav-cta">Talk to Us</a></div>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="this.closest('.nav').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <a href="training.html" class="bc-link">Training</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">AI Elevate</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="course-hero animate-fade-up">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="course-badge">
+          <span class="cb-num">Course 02</span>
+          <span class="cb-dot"></span>
+          <span class="cb-cat">Mid-Career · Founders</span>
+        </div>
+        <div class="hero-title">AI Elevate</div>
+        <div class="hero-subtitle">Professional AI Mastery</div>
+        <p class="hero-body">For experienced professionals who want to go far beyond casual AI use, mastering advanced workflows, automation, data analysis, and custom AI solutions, all tailored to their specific career stream. Starts from first principles. Ends with a portfolio-ready capstone project.</p>
+        <div class="hero-actions">
+          <a href="#interest" class="btn btn-white btn-lg">Express Interest</a>
+          <a href="#curriculum" class="btn btn-ghost-white">View Curriculum</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hc-row">
+          <div><div class="hc-label">Format</div><div class="hc-value">Live + On-Demand</div><div class="hc-sub">Hybrid delivery</div></div>
+          <span class="hc-tag">Hybrid</span>
+        </div>
+        <div class="hc-row">
+          <div><div class="hc-label">Live Hours</div><div class="hc-value">100 hours</div><div class="hc-sub">+ 200h+ on-demand library</div></div>
+        </div>
+        <div class="hc-row">
+          <div><div class="hc-label">Cohort Size</div><div class="hc-value">100–150+ per cohort</div><div class="hc-sub">Controlled cohort, live instruction</div></div>
+        </div>
+        <div class="hc-row">
+          <div><div class="hc-label">Level</div><div class="hc-value">Beginner → Advanced</div><div class="hc-sub">Zero AI knowledge assumed</div></div>
+        </div>
+        <div class="hc-row">
+          <div><div class="hc-label">Pricing</div><div class="hc-value">Available on request</div><div class="hc-sub">Individual and group pricing available</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-cell"><span class="stat-icon">⏱</span><div><div class="stat-num text-deep-blue">100h</div><div class="stat-lbl">Live Instructor-Led</div></div></div>
+    <div class="stat-cell"><span class="stat-icon">🎬</span><div><div class="stat-num text-deep-blue">200h+</div><div class="stat-lbl">On-Demand Content</div></div></div>
+    <div class="stat-cell"><span class="stat-icon">📚</span><div><div class="stat-num text-deep-blue">16</div><div class="stat-lbl">Chapters Across 5 Clusters</div></div></div>
+    <div class="stat-cell"><span class="stat-icon">🎯</span><div><div class="stat-num text-deep-blue">9+</div><div class="stat-lbl">Streams Career-Track Tailored</div></div></div>
+    <div class="stat-cell"><span class="stat-icon">🏆</span><div><div class="stat-num text-deep-blue">Capstone</div><div class="stat-lbl">+ Certificate</div></div></div>
+  </div>
+
+  <!-- WHO -->
+  <section style="border-bottom:1px solid var(--border);">
+    <div class="page-section">
+      <div class="who-grid">
+        <div>
+          <span class="eyebrow">Who It's For</span>
+          <h2>Built for professionals ready to go all in on AI.</h2>
+          <p class="body-md">AI Elevate is for people who've moved past curiosity and want to become genuinely capable AI practitioners, in their own field, on their own terms.</p>
+          <div class="persona-cards" style="margin-top:28px;">
+            <div class="persona-card">
+              <span class="pc-icon">💼</span>
+              <div>
+                <div class="pc-title">Mid-Career Professionals (3–15 years experience)</div>
+                <p class="pc-desc">Finance managers, marketers, HR leads, operations professionals, anyone who wants AI to make them significantly more effective in their specific role.</p>
+              </div>
+            </div>
+            <div class="persona-card">
+              <span class="pc-icon">🚀</span>
+              <div>
+                <div class="pc-title">Startup Founders &amp; Operators</div>
+                <p class="pc-desc">Founders who need to build lean, AI-powered operations and want the hands-on capability to implement, not just commission, AI solutions in their business.</p>
+              </div>
+            </div>
+            <div class="persona-card">
+              <span class="pc-icon">🔄</span>
+              <div>
+                <div class="pc-title">Career Changers &amp; Upskillers</div>
+                <p class="pc-desc">Professionals pivoting into AI-adjacent roles or those looking to future-proof their current career with deep, practical AI capability.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="not-for-box">
+            <div class="nf-title">AI Elevate goes deep. Make sure you're ready for that.</div>
+            <div class="nf-item">Are a C-Suite leader looking for strategic overview only</div>
+            <div class="nf-item">Are a student or early-career professional (see AI Launchpad)</div>
+            <div class="nf-item">Want a short, light-touch introduction to AI tools</div>
+            <div class="nf-item">Are not ready for a sustained 100-hour learning commitment</div>
+          </div>
+          <div class="prereq-box">
+            <div class="prereq-title">✓ What you do need</div>
+            <p class="prereq-desc">No prior AI knowledge required, we start from first principles. You need professional experience in your field and the commitment to see the course through. Everything else we'll teach you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section class="page-section--alt" id="curriculum">
+    <div class="section-inner">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:end; margin-bottom:48px;">
+        <div>
+          <span class="eyebrow">Course Curriculum</span>
+          <h2>16 chapters. 5 structured clusters.</h2>
+          <p class="body-md">A complete journey from AI fundamentals through to advanced automation, custom AI solutions, and creative AI production, all tailored to your career stream.</p>
+        </div>
+        <div>
+          <p class="body-sm">Each cluster combines live instructor-led sessions with stream-specific assignments and on-demand deep-dives. Detailed chapter breakdowns available on request.</p>
+        </div>
+      </div>
+
+      <div class="clusters">
+        <div class="cluster cluster-a">
+          <div class="cluster-header">
+            <div class="cluster-header-left">
+              <span class="cluster-icon">🌐</span>
+              <div>
+                <div class="cluster-label">Cluster A · Foundations</div>
+                <div class="cluster-name">Understanding AI as a Professional</div>
+              </div>
+            </div>
+            <span class="cluster-count">5 Chapters</span>
+          </div>
+          <div class="cluster-chapters">
+            <div class="chapter-pill"><span class="ch-num">Ch 01</span><span class="ch-name">The AI Landscape for Professionals</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 02</span><span class="ch-name">Prompt Engineering Fundamentals</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 03</span><span class="ch-name">Advanced Prompt Engineering Techniques</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 04</span><span class="ch-name">Critical Thinking &amp; AI Quality Assurance</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 05</span><span class="ch-name">GenAI Tools Mastery, Text &amp; Reasoning</span></div>
+          </div>
+        </div>
+
+        <div class="cluster cluster-b">
+          <div class="cluster-header">
+            <div class="cluster-header-left">
+              <span class="cluster-icon">🔍</span>
+              <div>
+                <div class="cluster-label">Cluster B · Intelligence</div>
+                <div class="cluster-name">Research, Analysis &amp; Professional Writing</div>
+              </div>
+            </div>
+            <span class="cluster-count">3 Chapters</span>
+          </div>
+          <div class="cluster-chapters">
+            <div class="chapter-pill"><span class="ch-num">Ch 06</span><span class="ch-name">AI for Advanced Research &amp; Analysis</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 07</span><span class="ch-name">AI-Enhanced Professional Writing &amp; Documentation</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 08</span><span class="ch-name">AI for Data Analysis &amp; Insights</span></div>
+          </div>
+        </div>
+
+        <div class="cluster cluster-c">
+          <div class="cluster-header">
+            <div class="cluster-header-left">
+              <span class="cluster-icon">⚙️</span>
+              <div>
+                <div class="cluster-label">Cluster C · Automation</div>
+                <div class="cluster-name">Workflows, Integrations &amp; Custom AI Solutions</div>
+              </div>
+            </div>
+            <span class="cluster-count">4 Chapters</span>
+          </div>
+          <div class="cluster-chapters">
+            <div class="chapter-pill"><span class="ch-num">Ch 09</span><span class="ch-name">Workflow Automation &amp; AI Integration</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 10</span><span class="ch-name">Nodes &amp; API Integration</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 11</span><span class="ch-name">Vibe Coding &amp; No-Code Development</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 12</span><span class="ch-name">Custom AI Solutions &amp; Advanced Applications</span></div>
+          </div>
+        </div>
+
+        <div class="cluster cluster-d">
+          <div class="cluster-header">
+            <div class="cluster-header-left">
+              <span class="cluster-icon">🎨</span>
+              <div>
+                <div class="cluster-label">Cluster D · Creative AI</div>
+                <div class="cluster-name">Visual, Video &amp; Multimedia Production</div>
+              </div>
+            </div>
+            <span class="cluster-count">3 Chapters</span>
+          </div>
+          <div class="cluster-chapters">
+            <div class="chapter-pill"><span class="ch-num">Ch 13</span><span class="ch-name">AI Ethics, Bias &amp; Professional Responsibility</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 14</span><span class="ch-name">Visual AI, Advanced Image Creation &amp; Design</span></div>
+            <div class="chapter-pill"><span class="ch-num">Ch 15</span><span class="ch-name">Video &amp; Multimedia AI Production</span></div>
+          </div>
+        </div>
+
+        <div class="cluster cluster-e">
+          <div class="cluster-header">
+            <div class="cluster-header-left">
+              <span class="cluster-icon">🏆</span>
+              <div>
+                <div class="cluster-label">Cluster E · Capstone</div>
+                <div class="cluster-name">Project Presentations &amp; Certification</div>
+              </div>
+            </div>
+            <span class="cluster-count">1 Chapter</span>
+          </div>
+          <div class="cluster-chapters" style="grid-template-columns:1fr;">
+            <div class="chapter-pill"><span class="ch-num">Ch 16</span><span class="ch-name">Capstone Project Presentations, Groups present to a panel of judges. 15 minutes + 5 minutes Q&amp;A per group.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section style="border-bottom:1px solid var(--border);">
+    <div class="page-section">
+      <div class="section-intro">
+        <span class="eyebrow">What You'll Leave With</span>
+        <h2>Deep capability. Real deliverables.</h2>
+        <p class="body-md">AI Elevate is built around application, not just understanding. Every outcome is something you built, created, or demonstrated, not just something you sat through.</p>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-list">
+          <div class="outcome-item"><div class="oi-num">1</div><div><div class="oi-title">A professional-grade prompt library</div><div class="oi-desc">A curated, reusable library of prompts built specifically for your role and career stream, ready to deploy from day one.</div></div></div>
+          <div class="outcome-item"><div class="oi-num">2</div><div><div class="oi-title">Live AI-powered automations</div><div class="oi-desc">Working automated workflows built during the course, connected to real tools and relevant to your actual job.</div></div></div>
+          <div class="outcome-item"><div class="oi-num">3</div><div><div class="oi-title">AI-powered data analysis and visualisation</div><div class="oi-desc">A completed data project using AI tools, from raw data through to insights, visualisations, and recommendations.</div></div></div>
+          <div class="outcome-item"><div class="oi-num">4</div><div><div class="oi-title">A no-code application or tool</div><div class="oi-desc">A functional web app or internal tool built using no-code AI platforms, no prior development experience needed.</div></div></div>
+          <div class="outcome-item"><div class="oi-num">5</div><div><div class="oi-title">Assessed capstone project + certificate</div><div class="oi-desc">A group capstone project presented to a panel of judges, demonstrating end-to-end AI capability in a real-world context.</div></div></div>
+        </div>
+
+        <div class="outcomes-right">
+          <div class="stream-callout">
+            <div class="sc-title">🎯 Stream-Specific Throughout</div>
+            <p class="sc-desc">Every assignment, case study, and project in AI Elevate is tailored to your declared career stream. You'll learn AI through the lens of your actual work, not generic examples.</p>
+            <div class="sc-streams">
+              <span class="sc-stream">Finance</span>
+              <span class="sc-stream">Marketing</span>
+              <span class="sc-stream">HR</span>
+              <span class="sc-stream">Operations</span>
+              <span class="sc-stream">Data &amp; Analytics</span>
+              <span class="sc-stream">Product &amp; Tech</span>
+              <span class="sc-stream">Sales</span>
+              <span class="sc-stream">Vendor Management</span>
+              <span class="sc-stream">Customer Experience</span>
+            </div>
+          </div>
+
+          <div class="tools-box">
+            <div class="tb-label">Tools Covered in AI Elevate</div>
+            <div class="tb-chips">
+              <span class="tb-chip">ChatGPT</span><span class="tb-chip">Claude</span><span class="tb-chip">Gemini</span>
+              <span class="tb-chip">Perplexity</span><span class="tb-chip">Zapier</span><span class="tb-chip">Make</span>
+              <span class="tb-chip">n8n</span><span class="tb-chip">Midjourney</span><span class="tb-chip">DALL-E</span>
+              <span class="tb-chip">Runway ML</span><span class="tb-chip">Replit</span><span class="tb-chip">Lovable</span>
+              <span class="tb-chip">Julius AI</span><span class="tb-chip">Notion AI</span>
+            </div>
+            <div class="tb-note">Tools selected for each use case. Additional tools introduced based on cohort needs and industry context.</div>
+          </div>
+
+          <div class="capstone-box">
+            <div class="cb-title">🏆 Capstone Project</div>
+            <p class="cb-desc">Groups design and build a real AI solution for a business challenge, presented to a panel of judges in the final session. 15 minutes presentation + 5 minutes Q&amp;A. The capstone is assessed, not just completed.</p>
+            <div class="cb-cert">🏅 Certificate awarded on completion and successful capstone presentation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEREST FORM -->
+  <section class="interest-section" id="interest">
+    <div class="int-left">
+      <span class="int-eyebrow">Express Interest</span>
+      <div class="int-h2">Ready to go all in?<br>Let's talk.</div>
+      <p class="int-body">AI Elevate runs in controlled cohorts. Express your interest and our team will reach out with upcoming cohort dates, pricing, and everything you need to make the decision.</p>
+      <div class="int-bullets">
+        <div class="int-bullet">No commitment required, just tell us you're interested</div>
+        <div class="int-bullet">We'll confirm cohort dates and availability within 48 hours</div>
+        <div class="int-bullet">Pricing provided on request, individual and group rates available</div>
+        <div class="int-bullet">We'll match you to the right career stream before you enrol</div>
+      </div>
+    </div>
+
+    <form class="int-form" name="ai-elevate-interest-form" method="POST" netlify>
+      <input type="hidden" name="form-name" value="ai-elevate-interest-form" />
+      <div class="form-title">Express Your Interest</div>
+      <div class="form-subtitle">Takes 2 minutes. No commitment.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" name="first-name" placeholder="Jane" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" name="last-name" placeholder="Smith" />
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Work Email</label>
+        <input type="email" class="form-input" name="email" placeholder="jane@company.com" />
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Job Title</label>
+        <input type="text" class="form-input" name="job-title" placeholder="Your current role" />
+      </div>
+
+      <div class="form-group full phone-row">
+        <div class="form-group">
+          <label class="form-label">Country Code</label>
+          <select class="form-select" name="country-code">
+            <option>🇲🇺 +230</option>
+            <option>🇺🇸 +1</option>
+            <option>🇬🇧 +44</option>
+            <option>🇮🇳 +91</option>
+            <option>🇦🇺 +61</option>
+            <option>🇿🇦 +27</option>
+            <option>🇳🇬 +234</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-input" name="phone" placeholder="+230 XXX XXXX" />
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Career Stream</label>
+        <select class="form-select" name="career-stream">
+          <option value="">Select your stream</option>
+          <option>Finance</option>
+          <option>Marketing</option>
+          <option>HR</option>
+          <option>Operations</option>
+          <option>Data &amp; Analytics</option>
+          <option>Product &amp; Tech</option>
+          <option>Sales</option>
+          <option>Vendor Management</option>
+          <option>Customer Experience</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Anything you'd like us to know? (optional)</label>
+        <textarea class="form-input" name="message" rows="3" style="resize:vertical;"></textarea>
+      </div>
+
+      <button class="form-submit">Submit Expression of Interest</button>
+      <p class="form-privacy">We'll only use your details to respond to your enquiry. No spam, ever.</p>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap"><div class="footer-logo-img"><img src="assets/FullLogo_NoBuffer.png" alt="Mellone" /></div></div>
+          <p class="footer-tagline">AI training and consulting for professionals and organisations ready to lead in an AI-first world.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Training</div>
+          <a href="ai-nexus.html" class="footer-link">AI Nexus</a>
+          <a href="ai-elevate.html" class="footer-link">AI Elevate</a>
+          <a href="ai-launchpad.html" class="footer-link">AI Launchpad</a>
+          <a href="#" class="footer-link">For Colleges ↗</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <a href="consulting.html" class="footer-link">Consulting</a>
+          <a href="blog.html" class="footer-link">Blog</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Get in Touch</div>
+          <a href="mailto:hello@mellone.ai" class="footer-link">hello@mellone.ai</a>
+          <a href="https://linkedin.com/company/mellone" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="contact.html" class="footer-link">Book a Call</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Mellone. All rights reserved.</span>
+        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

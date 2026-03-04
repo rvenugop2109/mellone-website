@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training | Mellone</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- TRAINING PAGE STYLES ---- */
+
+    /* HERO */
+    .page-hero {
+      padding: 96px 64px 80px;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+      align-items: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(36px, 4.5vw, 52px);
+      font-weight: 800;
+      color: var(--deep-blue);
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      margin-bottom: 18px;
+    }
+
+    .page-hero p {
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--mid-gray);
+      margin-bottom: 32px;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero-props {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hero-prop {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .hp-icon { font-size: 20px; flex-shrink: 0; }
+
+    .hp-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 3px;
+    }
+
+    .hp-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--mid-gray);
+    }
+
+    /* DELIVERY */
+    .delivery {
+      padding: 96px 64px;
+    }
+
+    .delivery-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .delivery-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+
+    .delivery-header h2 { margin-bottom: 0; }
+
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .delivery-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .dc-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dc-header--live    { background: var(--deep-blue); }
+    .dc-header--demand  { background: var(--dark-navy); }
+
+    .dc-icon { font-size: 52px; margin-bottom: 10px; }
+
+    .dc-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .dc-meta {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .dc-body {
+      padding: 24px 28px;
+      background: white;
+    }
+
+    .dc-body p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+      margin-bottom: 20px;
+    }
+
+    .dc-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .dc-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--dark-navy);
+      line-height: 1.45;
+    }
+
+    .dc-feat::before {
+      content: '✓';
+      color: var(--deep-blue);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .dc-duration {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--mid-gray);
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .delivery-note {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .dn-icon { font-size: 18px; flex-shrink: 0; }
+
+    .dn-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 4px;
+    }
+
+    .dn-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--mid-gray);
+    }
+
+    /* STREAMS */
+    .streams {
+      padding: 96px 64px;
+      background: var(--off-white);
+    }
+
+    .streams-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .streams-header {
+      max-width: 580px;
+      margin-bottom: 48px;
+    }
+
+    .streams-header h2 { margin-bottom: 12px; }
+
+    .stream-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .stream-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .stream-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--pale-blue);
+      min-width: 32px;
+      margin-top: 2px;
+    }
+
+    .stream-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 4px;
+    }
+
+    .stream-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--mid-gray);
+    }
+
+    .tailoring-box {
+      background: var(--deep-blue);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tb-left h3 {
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .tb-left p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .tb-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .tb-step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .tb-step-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+
+    .tb-step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 3px;
+    }
+
+    .tb-step-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* PROGRAMMES */
+    .programmes {
+      padding: 96px 64px;
+    }
+
+    .programmes-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .programmes-header {
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    .programmes-header h2 { margin-bottom: 12px; }
+
+    .programme-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .prog-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+    }
+
+    .prog-card-header {
+      padding: 22px 22px 18px;
+    }
+
+    .prog-card-header--nexus    { background: var(--deep-blue); }
+    .prog-card-header--elevate  { background: var(--mid-blue); }
+    .prog-card-header--launchpad { background: var(--periwinkle); }
+    .prog-card-header--college  { background: var(--dark-navy); }
+
+    .pc-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 10px;
+    }
+
+    .pc-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.02em;
+      margin-bottom: 2px;
+    }
+
+    .pc-cat {
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .prog-card-body {
+      padding: 18px 22px;
+      background: white;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pc-features {
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .pc-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--dark-navy);
+      line-height: 1.4;
+    }
+
+    .pc-feat::before {
+      content: '→';
+      color: var(--periwinkle);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .pc-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .pc-duration {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--mid-gray);
+    }
+
+    .pc-cta {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .pc-cta:hover { color: var(--mid-blue); }
+
+    /* FAQs */
+    .faqs {
+      padding: 96px 64px;
+      background: var(--off-white);
+    }
+
+    .faqs-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .faqs-header {
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    .faqs-header h2 { margin-bottom: 0; }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 24px;
+      text-align: left;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-question:hover { color: var(--deep-blue); }
+
+    .faq-chevron {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      color: var(--mid-gray);
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-answer {
+      display: none;
+      padding: 0 24px 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--mid-gray);
+      border-top: 1px solid var(--border);
+      margin: 0 24px;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .page-hero { grid-template-columns: 1fr; padding: 72px 40px 64px; gap: 40px; }
+      .delivery-grid { grid-template-columns: 1fr; }
+      .stream-grid { grid-template-columns: 1fr 1fr; }
+      .programme-cards { grid-template-columns: 1fr 1fr; }
+      .tailoring-box { grid-template-columns: 1fr; }
+      .delivery,
+      .streams,
+      .programmes,
+      .faqs { padding: 72px 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 56px 20px 48px; }
+      .stream-grid,
+      .programme-cards { grid-template-columns: 1fr; }
+      .delivery,
+      .streams,
+      .programmes,
+      .faqs { padding: 56px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/FullLogo_NoBuffer.png" alt="Mellone" />
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">
+          Services
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="consulting.html" class="nav-dropdown-item">Consulting</a>
+          <a href="training.html" class="nav-dropdown-item">Training</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">
+          Products
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="ai-nexus.html" class="nav-dropdown-item">AI Nexus</a>
+          <a href="ai-launchpad.html" class="nav-dropdown-item">AI Launchpad</a>
+          <a href="ai-elevate.html" class="nav-dropdown-item">AI Elevate</a>
+          <a href="https://campuslogix.in/" class="nav-dropdown-item" target="_blank" rel="noopener">For Colleges ↗</a>
+        </div>
+      </div>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta">Talk to Us</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="this.closest('.nav').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section style="background: var(--white); border-bottom: 1px solid var(--border);">
+    <div class="page-hero animate-fade-up">
+      <div>
+        <span class="eyebrow">Mellone Training</span>
+        <h1>AI skills that actually transfer.</h1>
+        <p>Most AI training teaches tools. Mellone teaches thinking, how to identify where AI creates value in your specific work, and how to build solutions that stick. Every course is tailored to your role and industry, starts from first principles, and ends with something real.</p>
+        <div class="hero-actions">
+          <a href="#programmes" class="btn btn-primary btn-lg">Find Your Course</a>
+          <a href="contact.html" class="btn btn-secondary btn-lg">Talk to Us First</a>
+        </div>
+      </div>
+
+      <div class="hero-props">
+        <div class="hero-prop">
+          <span class="hp-icon">🎯</span>
+          <div>
+            <div class="hp-title">Built around your world</div>
+            <p class="hp-desc">Content, assignments, and case studies are tailored to your career stream and industry, not a generic curriculum applied to everyone.</p>
+          </div>
+        </div>
+        <div class="hero-prop">
+          <span class="hp-icon">🔄</span>
+          <div>
+            <div class="hp-title">Hybrid, live and on-demand</div>
+            <p class="hp-desc">Instructor-led live sessions combined with 200h+ of recorded content. Learn with a cohort, go deeper on your own schedule.</p>
+          </div>
+        </div>
+        <div class="hero-prop">
+          <span class="hp-icon">🚀</span>
+          <div>
+            <div class="hp-title">Zero knowledge assumed</div>
+            <p class="hp-desc">Every course starts from first principles. You don't need to know anything about AI to begin, and you'll leave having built something real.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== STATS ======================== -->
+  <div class="stats-strip">
+    <div class="stat-cell">
+      <span class="stat-icon">📚</span>
+      <div>
+        <div class="stat-num text-deep-blue">300h+</div>
+        <div class="stat-lbl">Total Content Per Course</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-icon">🔄</span>
+      <div>
+        <div class="stat-num text-deep-blue">Live + On-Demand</div>
+        <div class="stat-lbl">Hybrid Delivery</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-icon">🎯</span>
+      <div>
+        <div class="stat-num text-deep-blue">9+</div>
+        <div class="stat-lbl">Streams Career-Track Tailoring</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-icon">⚡</span>
+      <div>
+        <div class="stat-num text-deep-blue">Zero</div>
+        <div class="stat-lbl">AI Knowledge Assumed</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-icon">🏅</span>
+      <div>
+        <div class="stat-num text-deep-blue">Certificate</div>
+        <div class="stat-lbl">On Completion</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== DELIVERY ======================== -->
+  <section class="delivery">
+    <div class="delivery-inner">
+      <div class="delivery-header">
+        <h2>The best of live and on-demand, together.</h2>
+      </div>
+
+      <div class="delivery-grid">
+        <div class="delivery-card">
+          <div class="dc-header dc-header--live">
+            <div class="dc-icon">🎓</div>
+            <div class="dc-title">Live Sessions</div>
+            <div class="dc-meta">Instructor-Led · Cohort-Based</div>
+          </div>
+          <div class="dc-body">
+            <p>Real instructors, real-time. Live sessions are where concepts are taught, questions get answered, and work gets challenged, by practitioners who've done what they're teaching.</p>
+            <ul class="dc-features">
+              <li class="dc-feat">Controlled cohort sizes keep sessions interactive and focused</li>
+              <li class="dc-feat">AI Nexus: 25–30 per cohort · AI Elevate &amp; Launchpad: 100–150+</li>
+              <li class="dc-feat">Peer learning with professionals from different industries</li>
+              <li class="dc-feat">Q&amp;A and real-world problem-solving in session</li>
+            </ul>
+            <div class="dc-duration">⏱ AI Nexus: 20h live · AI Elevate &amp; Launchpad: 100h live</div>
+          </div>
+        </div>
+
+        <div class="delivery-card">
+          <div class="dc-header dc-header--demand">
+            <div class="dc-icon">🎬</div>
+            <div class="dc-title">On-Demand Library</div>
+            <div class="dc-meta">Recorded · Self-Paced · 200h+</div>
+          </div>
+          <div class="dc-body">
+            <p>Every course is supported by a library of over 200 hours of recorded content, deep-dives, tool demos, and case studies that let you go at your own pace.</p>
+            <ul class="dc-features">
+              <li class="dc-feat">200h+ of recorded lectures, tool demos, and case studies</li>
+              <li class="dc-feat">Stream-specific content for your career track</li>
+              <li class="dc-feat">Industry use cases relevant to your sector</li>
+              <li class="dc-feat">Access continues after course completion</li>
+            </ul>
+            <div class="dc-duration">📚 All courses include the full on-demand library</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="delivery-note">
+        <span class="dn-icon">💡</span>
+        <div>
+          <div class="dn-title">Live and on-demand reinforce each other</div>
+          <p class="dn-desc">Live sessions introduce and challenge. The on-demand library lets you go deeper, revisit a topic, or catch up if you miss a session. Together, they ensure everyone learns in their own way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== STREAMS ======================== -->
+  <section class="streams">
+    <div class="streams-inner">
+      <div class="streams-header">
+        <span class="eyebrow">Career-Stream Tailoring</span>
+        <h2>Learn AI through your lens.</h2>
+      </div>
+
+      <div class="stream-grid">
+        <div class="stream-card">
+          <span class="stream-num">01</span>
+          <div>
+            <div class="stream-title">Finance</div>
+            <div class="stream-desc">Financial modelling, reporting automation, forecasting with AI</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">02</span>
+          <div>
+            <div class="stream-title">Marketing</div>
+            <div class="stream-desc">Content creation, campaign analysis, audience segmentation</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">03</span>
+          <div>
+            <div class="stream-title">HR</div>
+            <div class="stream-desc">Talent screening, onboarding automation, people analytics</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">04</span>
+          <div>
+            <div class="stream-title">Operations</div>
+            <div class="stream-desc">Process automation, supply chain intelligence, workflow optimisation</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">05</span>
+          <div>
+            <div class="stream-title">Data &amp; Analytics</div>
+            <div class="stream-desc">AI-powered analysis, visualisation, predictive modelling</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">06</span>
+          <div>
+            <div class="stream-title">Product &amp; Tech</div>
+            <div class="stream-desc">Vibe coding, AI-assisted dev, product thinking with AI</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">07</span>
+          <div>
+            <div class="stream-title">Sales</div>
+            <div class="stream-desc">Pipeline intelligence, proposal generation, CRM automation</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">08</span>
+          <div>
+            <div class="stream-title">Vendor Management</div>
+            <div class="stream-desc">Supplier analysis, contract review automation, procurement intelligence</div>
+          </div>
+        </div>
+        <div class="stream-card">
+          <span class="stream-num">09</span>
+          <div>
+            <div class="stream-title">Customer Experience</div>
+            <div class="stream-desc">AI-powered support, sentiment analysis, personalisation at scale</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tailoring-box">
+        <div class="tb-left">
+          <h3>Same course. Different lens for everyone.</h3>
+          <p>The core curriculum is consistent across all learners, but every assignment, case study, and project is built around your specific role and industry.</p>
+        </div>
+        <div class="tb-steps">
+          <div class="tb-step">
+            <span class="tb-step-icon">👤</span>
+            <div>
+              <div class="tb-step-title">You declare your stream at enrolment</div>
+              <div class="tb-step-desc">Choose the career track that best represents your current or target role.</div>
+            </div>
+          </div>
+          <div class="tb-step">
+            <span class="tb-step-icon">📝</span>
+            <div>
+              <div class="tb-step-title">Assignments and case studies are stream-specific</div>
+              <div class="tb-step-desc">Every practical exercise is drawn from real-world scenarios in your field, not generic examples.</div>
+            </div>
+          </div>
+          <div class="tb-step">
+            <span class="tb-step-icon">🎯</span>
+            <div>
+              <div class="tb-step-title">Your capstone is built around your work context</div>
+              <div class="tb-step-desc">The final project is scoped to a real challenge in your stream, something you can take back and implement immediately.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROGRAMMES ======================== -->
+  <section class="programmes" id="programmes">
+    <div class="programmes-inner">
+      <div class="programmes-header">
+        <span class="eyebrow">Our Programmes</span>
+        <h2>Four paths. One starting point.</h2>
+        <p class="body-md">Every Mellone programme starts from zero, no AI knowledge assumed. Choose the path that matches your level, role, and goals.</p>
+      </div>
+
+      <div class="programme-cards">
+        <div class="prog-card">
+          <div class="prog-card-header prog-card-header--nexus">
+            <div class="pc-badge">Course 01 · C-Suite · Founders</div>
+            <div class="pc-name">AI Nexus</div>
+            <div class="pc-cat">Strategic Leadership</div>
+          </div>
+          <div class="prog-card-body">
+            <ul class="pc-features">
+              <li class="pc-feat">Map AI opportunities across your org</li>
+              <li class="pc-feat">Build compelling AI business cases</li>
+              <li class="pc-feat">90-day implementation roadmap</li>
+              <li class="pc-feat">AI governance &amp; ethics</li>
+            </ul>
+            <div class="pc-footer">
+              <span class="pc-duration">20h Live · 200h+ On-Demand</span>
+              <a href="ai-nexus.html" class="pc-cta">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-card-header prog-card-header--elevate">
+            <div class="pc-badge">Course 02 · Mid-Career · Founders</div>
+            <div class="pc-name">AI Elevate</div>
+            <div class="pc-cat">Professional Mastery</div>
+          </div>
+          <div class="prog-card-body">
+            <ul class="pc-features">
+              <li class="pc-feat">Advanced prompt engineering</li>
+              <li class="pc-feat">Workflow automation &amp; AI agents</li>
+              <li class="pc-feat">Stream-specific data analysis</li>
+              <li class="pc-feat">Capstone project + certificate</li>
+            </ul>
+            <div class="pc-footer">
+              <span class="pc-duration">100h Live · 200h+ On-Demand</span>
+              <a href="ai-elevate.html" class="pc-cta">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-card-header prog-card-header--launchpad">
+            <div class="pc-badge">Course 03 · Early Career · Students</div>
+            <div class="pc-name">AI Launchpad</div>
+            <div class="pc-cat">Career Foundation</div>
+          </div>
+          <div class="prog-card-body">
+            <ul class="pc-features">
+              <li class="pc-feat">How AI &amp; LLMs actually work</li>
+              <li class="pc-feat">Prompt engineering foundations</li>
+              <li class="pc-feat">No-code apps &amp; automation</li>
+              <li class="pc-feat">Capstone project + certificate</li>
+            </ul>
+            <div class="pc-footer">
+              <span class="pc-duration">100h Live · 200h+ On-Demand</span>
+              <a href="ai-launchpad.html" class="pc-cta">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-card-header prog-card-header--college">
+            <div class="pc-badge">Course 04 · Institutional</div>
+            <div class="pc-name">For Colleges</div>
+            <div class="pc-cat">Institutional Partnerships</div>
+          </div>
+          <div class="prog-card-body">
+            <ul class="pc-features">
+              <li class="pc-feat">Embedded AI curriculum for institutions</li>
+              <li class="pc-feat">Campus-wide cohort programmes</li>
+              <li class="pc-feat">Institutional pricing &amp; partnerships</li>
+              <li class="pc-feat">Dedicated college platform</li>
+            </ul>
+            <div class="pc-footer">
+              <span class="pc-duration">Institutional pricing</span>
+              <a href="https://campuslogix.in/" class="pc-cta" target="_blank" rel="noopener">Visit Site ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FAQs ======================== -->
+  <section class="faqs">
+    <div class="faqs-inner">
+      <div class="faqs-header">
+        <span class="eyebrow">Common Questions</span>
+        <h2>FAQs</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+            Do I need any prior AI knowledge to enrol?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-answer">No. Every Mellone course starts from absolute first principles. We do not assume any prior knowledge of AI, machine learning, or technology. The only requirement is curiosity and the commitment to see the course through.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+            How do I know which course is right for me?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-answer">AI Nexus is built for founders and senior leaders who need to lead an AI transformation. AI Elevate is for mid-career professionals who want to master AI in their specific role. AI Launchpad is for graduates and early-career professionals building foundational skills. If you're unsure, contact us, we'll help you find the right fit.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+            What does "stream-specific" mean in practice?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-answer">When you enrol, you declare your career stream (Finance, Marketing, HR, Operations, etc.). Every assignment, case study, and capstone project is then built around scenarios and challenges specific to that field. The core curriculum is consistent, but the application is tailored to your actual work context.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+            Is the training delivered online or in person?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-answer">All Mellone training is delivered online. Live sessions are conducted via video conferencing and are recorded for on-demand access. The full on-demand library of 200h+ is available 24/7 from any device, anywhere in the world.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+            Can organisations enrol their teams?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-answer">Yes. We work with organisations to enrol teams at group pricing. For large organisations, we can also discuss custom scheduling and cohort arrangements. Contact us to discuss your organisation's needs.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CTA ======================== -->
+  <section class="cta-section">
+    <div style="max-width: var(--max-width); margin: 0 auto;">
+      <h2>Not sure where to start?</h2>
+      <p>Talk to us. We'll help you find the right programme for your level, your goals, and your timeline.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-white btn-lg">Talk to Us</a>
+        <a href="#programmes" class="btn btn-ghost-white btn-lg">See All Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <div class="footer-logo-img">
+              <img src="assets/FullLogo_NoBuffer.png" alt="Mellone" />
+            </div>
+          </div>
+          <p class="footer-tagline">AI training and consulting for professionals and organisations ready to lead in an AI-first world.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Training</div>
+          <a href="ai-nexus.html" class="footer-link">AI Nexus</a>
+          <a href="ai-elevate.html" class="footer-link">AI Elevate</a>
+          <a href="ai-launchpad.html" class="footer-link">AI Launchpad</a>
+          <a href="https://campuslogix.in/" class="footer-link" target="_blank" rel="noopener">For Colleges ↗</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <a href="consulting.html" class="footer-link">Consulting</a>
+          <a href="blog.html" class="footer-link">Blog</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Get in Touch</div>
+          <a href="mailto:hello@mellone.ai" class="footer-link">hello@mellone.ai</a>
+          <a href="https://linkedin.com/company/mellone" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="contact.html" class="footer-link">Book a Call</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Mellone. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

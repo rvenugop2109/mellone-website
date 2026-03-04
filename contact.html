@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Mellone</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- CONTACT PAGE ---- */
+
+    /* SPLIT LAYOUT */
+    .contact-main {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      min-height: calc(100vh - 68px);
+    }
+
+    /* LEFT PANEL */
+    .contact-left {
+      background: var(--dark-navy);
+      padding: 64px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-left::before {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,26,230,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cl-top { position: relative; z-index: 1; }
+
+    .cl-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--pale-blue);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cl-h1 {
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .cl-body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.72;
+      margin-bottom: 36px;
+    }
+
+    .cl-routes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cl-route {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .cr-icon  { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+
+    .cr-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 3px;
+    }
+
+    .cr-desc  {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+
+    .cl-bottom { position: relative; z-index: 1; }
+
+    .cl-direct { display: flex; flex-direction: column; gap: 8px; }
+
+    .cd-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 4px;
+    }
+
+    .cd-item {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .cd-item:hover { color: rgba(255,255,255,0.8); }
+
+    .cd-item span { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+    /* RIGHT PANEL */
+    .contact-right {
+      padding: 64px 56px;
+      background: var(--white);
+      overflow-y: auto;
+    }
+
+    .form-header { margin-bottom: 28px; }
+
+    .form-h2 {
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 700;
+      color: var(--dark-navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .form-sub {
+      font-size: 14px;
+      color: var(--mid-gray);
+      line-height: 1.55;
+    }
+
+    /* Type toggle */
+    .type-toggle {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .tt-btn {
+      padding: 12px 10px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      background: var(--off-white);
+      color: var(--mid-gray);
+      text-align: center;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tt-btn:hover {
+      border-color: var(--periwinkle);
+      color: var(--dark-navy);
+    }
+
+    .tt-btn.active {
+      background: var(--deep-blue);
+      border-color: var(--deep-blue);
+      color: white;
+    }
+
+    .tt-icon { font-size: 18px; }
+
+    /* Form fields */
+    .form-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      color: var(--dark-navy);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 11px 14px;
+      background: var(--off-white);
+      outline: none;
+      width: 100%;
+      appearance: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--deep-blue);
+      background: white;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .phone-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 10px;
+    }
+
+    .contextual-fields {
+      display: contents;
+    }
+
+    .contextual-fields.hidden {
+      display: none;
+    }
+
+    .form-submit {
+      background: var(--deep-blue);
+      color: white;
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 4px;
+      transition: background 0.15s;
+    }
+
+    .form-submit:hover { background: var(--mid-blue); }
+
+    .form-privacy {
+      font-size: 11px;
+      color: var(--mid-gray);
+      text-align: center;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .contact-main { grid-template-columns: 1fr; min-height: auto; }
+      .contact-left { padding: 56px 40px; min-height: auto; }
+      .contact-right { padding: 56px 40px; }
+      .contact-left::before { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .contact-left { padding: 48px 20px; }
+      .contact-right { padding: 40px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .phone-row { grid-template-columns: 1fr; }
+      .type-toggle { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo"><img src="assets/FullLogo_NoBuffer.png" alt="Mellone" /></a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">Services<svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="consulting.html" class="nav-dropdown-item">Consulting</a>
+          <a href="training.html" class="nav-dropdown-item">Training</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">Products<svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="ai-nexus.html" class="nav-dropdown-item">AI Nexus</a>
+          <a href="ai-launchpad.html" class="nav-dropdown-item">AI Launchpad</a>
+          <a href="ai-elevate.html" class="nav-dropdown-item">AI Elevate</a>
+          <a href="https://campuslogix.in/" class="nav-dropdown-item" target="_blank" rel="noopener">For Colleges ↗</a>
+        </div>
+      </div>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link active">Contact</a>
+    </div>
+    <div class="nav-right"><a href="contact.html" class="nav-cta">Talk to Us</a></div>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="this.closest('.nav').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- CONTACT SPLIT LAYOUT -->
+  <main class="contact-main animate-fade-up">
+
+    <!-- LEFT PANEL -->
+    <div class="contact-left">
+      <div class="cl-top">
+        <span class="cl-eyebrow">Get in Touch</span>
+        <h1 class="cl-h1">Let's find the right conversation to have.</h1>
+        <p class="cl-body">Whether you're an individual exploring a course, an organisation thinking about AI training at scale, or a company that needs hands-on implementation support, fill in the form and we'll route your enquiry to the right person.</p>
+
+        <div class="cl-routes">
+          <div class="cl-route">
+            <span class="cr-icon">🎓</span>
+            <div>
+              <div class="cr-title">Training Enquiries</div>
+              <p class="cr-desc">Course information, cohort dates, group pricing, stream guidance, and enrolment questions for AI Nexus, Elevate, or Launchpad.</p>
+            </div>
+          </div>
+          <div class="cl-route">
+            <span class="cr-icon">⚙️</span>
+            <div>
+              <div class="cr-title">Consulting Enquiries</div>
+              <p class="cr-desc">AI opportunity mapping, workflow automation, and end-to-end implementation for organisations ready to act on AI.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cl-bottom">
+        <div class="cl-direct">
+          <div class="cd-label">Direct contact</div>
+          <a href="mailto:hello@mellone.ai" class="cd-item">
+            <span>📧</span>
+            <span>hello@mellone.ai</span>
+          </a>
+          <a href="https://linkedin.com/company/mellone" class="cd-item" target="_blank" rel="noopener">
+            <span>💼</span>
+            <span>linkedin.com/company/mellone</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL, FORM -->
+    <div class="contact-right">
+      <div class="form-header">
+        <h2 class="form-h2">Send us a message</h2>
+        <p class="form-sub">Select the type of enquiry and we'll make sure it gets to the right team.</p>
+      </div>
+
+      <!-- TYPE TOGGLE -->
+      <div class="type-toggle">
+        <button class="tt-btn active" id="btn-training" onclick="setType('training')">
+          <span class="tt-icon">🎓</span>
+          Training Enquiry
+        </button>
+        <button class="tt-btn" id="btn-consulting" onclick="setType('consulting')">
+          <span class="tt-icon">⚙️</span>
+          Consulting Enquiry
+        </button>
+        <button class="tt-btn" id="btn-general" onclick="setType('general')">
+          <span class="tt-icon">💬</span>
+          General
+        </button>
+      </div>
+
+      <!-- FORM -->
+      <form class="form-body" name="contact-form" method="POST" netlify>
+        <input type="hidden" name="form-name" value="contact-form" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" name="first-name" placeholder="Jane" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" name="last-name" placeholder="Smith" />
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label">Work Email</label>
+          <input type="email" class="form-input" name="email" placeholder="jane@company.com" />
+        </div>
+
+        <div class="form-group full phone-row">
+          <div class="form-group">
+            <label class="form-label">Country Code</label>
+            <select class="form-select" name="country-code">
+              <option>🇲🇺 +230</option>
+              <option>🇺🇸 +1</option>
+              <option>🇬🇧 +44</option>
+              <option>🇮🇳 +91</option>
+              <option>🇦🇺 +61</option>
+              <option>🇨🇦 +1 (CA)</option>
+              <option>🇸🇬 +65</option>
+              <option>🇦🇪 +971</option>
+              <option>🇿🇦 +27</option>
+              <option>🇳🇬 +234</option>
+              <option>🇰🇪 +254</option>
+              <option>🇫🇷 +33</option>
+              <option>🇩🇪 +49</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-input" name="phone" placeholder="+230 XXX XXXX" />
+          </div>
+        </div>
+
+        <!-- TRAINING FIELDS -->
+        <div class="contextual-fields" id="training-fields">
+          <div class="form-group full">
+            <label class="form-label">Which course are you interested in?</label>
+            <select class="form-select" name="course">
+              <option value="">Select a course</option>
+              <option>AI Nexus, Strategic AI for Leaders</option>
+              <option>AI Elevate, Professional AI Mastery</option>
+              <option>AI Launchpad, Early Career Foundation</option>
+              <option>Not sure yet, help me decide</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Enquiring for</label>
+            <select class="form-select" name="enquiring-for">
+              <option value="">Select</option>
+              <option>Myself</option>
+              <option>A small team (2–10 people)</option>
+              <option>My organisation (10+ people)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CONSULTING FIELDS -->
+        <div class="contextual-fields hidden" id="consulting-fields">
+          <div class="form-group full">
+            <label class="form-label">Organisation Name</label>
+            <input type="text" class="form-input" name="organisation" placeholder="Your company or organisation" />
+          </div>
+          <div class="form-group full">
+            <label class="form-label">What are you looking to achieve?</label>
+            <select class="form-select" name="consulting-goal">
+              <option value="">Select</option>
+              <option>AI opportunity mapping and strategy</option>
+              <option>Workflow automation</option>
+              <option>End-to-end AI implementation</option>
+              <option>Not sure yet, I need guidance</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label">Message (optional)</label>
+          <textarea class="form-textarea" name="message" placeholder="Tell us a bit more about what you're looking for..."></textarea>
+        </div>
+
+        <button type="submit" class="form-submit" id="submit-btn">Send Training Enquiry</button>
+        <p class="form-privacy">We'll respond within one business day. No spam, ever.</p>
+      </form>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap"><div class="footer-logo-img"><img src="assets/FullLogo_NoBuffer.png" alt="Mellone" /></div></div>
+          <p class="footer-tagline">AI training and consulting for professionals and organisations ready to lead in an AI-first world.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Training</div>
+          <a href="ai-nexus.html" class="footer-link">AI Nexus</a>
+          <a href="ai-elevate.html" class="footer-link">AI Elevate</a>
+          <a href="ai-launchpad.html" class="footer-link">AI Launchpad</a>
+          <a href="#" class="footer-link">For Colleges ↗</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <a href="consulting.html" class="footer-link">Consulting</a>
+          <a href="blog.html" class="footer-link">Blog</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Get in Touch</div>
+          <a href="mailto:hello@mellone.ai" class="footer-link">hello@mellone.ai</a>
+          <a href="https://linkedin.com/company/mellone" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="contact.html" class="footer-link">Book a Call</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Mellone. All rights reserved.</span>
+        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setType(type) {
+      // Toggle buttons
+      ['training', 'consulting', 'general'].forEach(t => {
+        document.getElementById('btn-' + t).classList.toggle('active', t === type);
+      });
+
+      const tf = document.getElementById('training-fields');
+      const cf = document.getElementById('consulting-fields');
+      const btn = document.getElementById('submit-btn');
+
+      if (type === 'training') {
+        tf.classList.remove('hidden');
+        cf.classList.add('hidden');
+        btn.textContent = 'Send Training Enquiry';
+      } else if (type === 'consulting') {
+        tf.classList.add('hidden');
+        cf.classList.remove('hidden');
+        btn.textContent = 'Send Consulting Enquiry';
+      } else {
+        tf.classList.add('hidden');
+        cf.classList.add('hidden');
+        btn.textContent = 'Send Message';
+      }
+    }
+  </script>
+
+  <script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mellone | AI Training & Consulting</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- PAGE-SPECIFIC STYLES ---- */
+
+    /* HERO */
+    .hero {
+      padding: 72px 64px 60px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 64px;
+      align-items: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 800;
+      color: var(--deep-blue);
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      margin-bottom: 22px;
+    }
+
+    .hero-body {
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--mid-gray);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .hero-stat {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+    }
+
+    .hero-stat-num {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--deep-blue);
+      margin-bottom: 2px;
+    }
+
+    .hero-stat-lbl {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mid-gray);
+      letter-spacing: 0.03em;
+    }
+
+    /* Hero right panel */
+    .hero-right {
+      background: var(--deep-blue);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-panel-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pale-blue);
+      margin-bottom: 6px;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+    }
+
+    .hero-badge-icon { font-size: 18px; }
+
+    .hero-badge-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* WHAT WE DO */
+    .what-we-do {
+      padding: 72px 64px;
+      background: var(--off-white);
+    }
+
+    .wwd-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .wwd-header {
+      max-width: 620px;
+      margin-bottom: 36px;
+    }
+
+    .wwd-header h2 {
+      color: var(--deep-blue);
+      margin-bottom: 14px;
+    }
+
+    .wwd-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .pillar-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .pillar-icon { font-size: 52px; margin-bottom: 16px; }
+
+    .pillar-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    .pillar-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+    }
+
+    .wwd-included {
+      background: var(--dark-navy);
+      border-radius: var(--radius-xl);
+      padding: 32px 36px;
+    }
+
+    .included-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .included-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .included-item-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.12);
+      color: var(--pale-blue);
+      padding: 3px 8px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .tools-row {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .tools-row strong {
+      color: rgba(255,255,255,0.5);
+      font-weight: 600;
+    }
+
+    /* COURSES */
+    .courses {
+      padding: 72px 64px;
+    }
+
+    .courses-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .courses-header {
+      max-width: 600px;
+      margin-bottom: 36px;
+    }
+
+    .courses-header h2 { margin-bottom: 12px; }
+
+    .course-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .course-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+    }
+
+    .cc-header {
+      padding: 28px 28px 20px;
+    }
+
+    .cc-header--nexus    { background: var(--dark-navy); }
+    .cc-header--elevate  { background: var(--dark-navy); }
+    .cc-header--launchpad { background: var(--dark-navy); }
+
+    .cc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 14px;
+    }
+
+    .cc-badge-num {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .cc-badge-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .cc-badge-cat {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .cc-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.025em;
+      margin-bottom: 4px;
+    }
+
+    .cc-category-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .cc-body {
+      padding: 24px 28px;
+      background: white;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cc-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+      margin-bottom: 20px;
+    }
+
+    .cc-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+
+    .cc-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--dark-navy);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .cc-feat::before {
+      content: '→';
+      color: var(--periwinkle);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .cc-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .cc-duration {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mid-gray);
+    }
+
+    .cc-cta {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .cc-cta:hover { color: var(--mid-blue); }
+
+    /* CONSULTING */
+    .consulting-section {
+      padding: 72px 64px;
+      background: var(--off-white);
+    }
+
+    .consulting-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .consulting-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+      margin-bottom: 36px;
+    }
+
+    .consulting-header h2 {
+      color: var(--deep-blue);
+      margin-bottom: 12px;
+    }
+
+    .consulting-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+
+    .consulting-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .oc-icon { font-size: 52px; margin-bottom: 16px; }
+
+    .ww-tag--more {
+      font-weight: 700;
+      color: var(--deep-blue);
+      background: rgba(26,26,230,0.08);
+      border-color: rgba(26,26,230,0.2);
+    }
+
+    .oc-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    .oc-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+    }
+
+    .where-we-work {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px 36px;
+    }
+
+    .ww-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 16px;
+    }
+
+    .ww-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .ww-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 10px;
+    }
+
+    .ww-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ww-tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--dark-navy);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .consulting-cta-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    /* PATHWAYS */
+    .pathways {
+      padding: 72px 64px;
+    }
+
+    .pathways-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .pathways-header {
+      max-width: 580px;
+      margin-bottom: 36px;
+    }
+
+    .pathways-header h2 { margin-bottom: 12px; }
+
+    .pathway-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .pathway-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px 28px;
+    }
+
+    .pathway-icon {
+      font-size: 52px;
+      margin-bottom: 18px;
+      display: block;
+      line-height: 1;
+    }
+
+    .pathway-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 6px;
+    }
+
+    .pathway-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 12px;
+    }
+
+    .pathway-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+      margin-bottom: 20px;
+    }
+
+    .pathway-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .pathway-link:hover { color: var(--mid-blue); }
+
+    /* PROCESS */
+    .process {
+      padding: 72px 64px;
+      background: var(--off-white);
+    }
+
+    .process-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .process-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .process-header h2 { margin-bottom: 12px; }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
+    }
+
+    .step-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--deep-blue);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+    }
+
+    /* BLOG */
+    .blog-section {
+      padding: 72px 64px;
+    }
+
+    .blog-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .blog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .blog-header h2 { margin-bottom: 0; }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .blog-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .blog-card:hover {
+      box-shadow: 0 8px 32px rgba(28,28,46,0.12);
+      transform: translateY(-2px);
+    }
+
+    .blog-card-img {
+      height: 180px;
+      background: var(--off-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 80px;
+    }
+
+    .blog-card-body {
+      padding: 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .blog-card-cat {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+    }
+
+    .blog-card-time {
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    .blog-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .blog-card-excerpt {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .blog-card-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .blog-card-link:hover { color: var(--mid-blue); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 72px 40px 64px;
+        gap: 40px;
+      }
+      .hero-right { display: none; }
+      .wwd-pillars,
+      .course-cards,
+      .consulting-cards,
+      .pathway-cards,
+      .blog-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .included-grid { grid-template-columns: 1fr 1fr; }
+      .what-we-do,
+      .courses,
+      .consulting-section,
+      .pathways,
+      .process,
+      .blog-section { padding: 72px 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 56px 20px 48px; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .wwd-pillars,
+      .course-cards,
+      .consulting-cards,
+      .pathway-cards,
+      .process-steps,
+      .blog-grid { grid-template-columns: 1fr; }
+      .included-grid { grid-template-columns: 1fr; }
+      .what-we-do,
+      .courses,
+      .consulting-section,
+      .pathways,
+      .process,
+      .blog-section { padding: 56px 20px; }
+      .consulting-header { grid-template-columns: 1fr; }
+      .blog-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .ww-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/FullLogo_NoBuffer.png" alt="Mellone" />
+    </a>
+
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">
+          Services
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="consulting.html" class="nav-dropdown-item">Consulting</a>
+          <a href="training.html" class="nav-dropdown-item">Training</a>
+        </div>
+      </div>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">
+          Products
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="ai-nexus.html" class="nav-dropdown-item">AI Nexus</a>
+          <a href="ai-launchpad.html" class="nav-dropdown-item">AI Launchpad</a>
+          <a href="ai-elevate.html" class="nav-dropdown-item">AI Elevate</a>
+          <a href="https://campuslogix.in/" class="nav-dropdown-item" target="_blank" rel="noopener">For Colleges ↗</a>
+        </div>
+      </div>
+
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta">Talk to Us</a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="this.closest('.nav').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section style="background: var(--white);">
+    <div class="hero animate-fade-up">
+      <div class="hero-left">
+        <span class="hero-eyebrow">AI Training &amp; Consulting</span>
+        <h1>Your organisation.<br>AI-ready.</h1>
+        <p class="hero-body">Mellone equips professionals and organisations with the knowledge and capability to deploy AI where it creates real, lasting value, tailored to your role, your industry, starting from first principles.</p>
+        <div class="hero-actions">
+          <a href="training.html" class="btn btn-primary btn-lg">Explore Our Courses</a>
+          <a href="contact.html" class="btn btn-secondary btn-lg">Talk to a Consultant</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">300h+</div>
+            <div class="hero-stat-lbl">Total Content</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">Hybrid</div>
+            <div class="hero-stat-lbl">Live &amp; On-Demand Delivery</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">Zero</div>
+            <div class="hero-stat-lbl">AI Knowledge Assumed</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">Every</div>
+            <div class="hero-stat-lbl">Level Covered</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-panel-title">What's included</div>
+        <div class="hero-badge">
+          <span class="hero-badge-icon">🎓</span>
+          <span class="hero-badge-text">Live Sessions</span>
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-icon">🎬</span>
+          <span class="hero-badge-text">On-Demand Library</span>
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-icon">📋</span>
+          <span class="hero-badge-text">Stream-Specific Cases</span>
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-icon">🌐</span>
+          <span class="hero-badge-text">Global Access</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== WHAT WE DO ======================== -->
+  <section class="what-we-do">
+    <div class="wwd-inner">
+      <div class="wwd-header">
+        <h2>Training that sticks. Consulting that ships.</h2>
+        <p class="body-md">Every course is tailored to your career stream and industry, not a generic curriculum. You learn with examples and assignments built for your world. Our consulting practice ensures the organisations that train with us can also implement with us, the same practitioners, end to end.</p>
+      </div>
+
+      <div class="wwd-pillars">
+        <div class="pillar-card">
+          <div class="pillar-icon">🎯</div>
+          <div class="pillar-title">Tailored to Your Stream &amp; Industry</div>
+          <p class="pillar-desc">Assignments and case studies built for your career path, not a one-size-fits-all curriculum.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon">🔄</div>
+          <div class="pillar-title">Hybrid, Live + 200h+ On-Demand</div>
+          <p class="pillar-desc">Learn live with an instructor, then go deeper on your own schedule with a full recorded library.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon">🚀</div>
+          <div class="pillar-title">Zero to Deployment</div>
+          <p class="pillar-desc">Every course starts from first principles. Every course ends with something real you built yourself.</p>
+        </div>
+      </div>
+
+      <div class="wwd-included">
+        <div class="included-label">What's included in every course</div>
+        <div class="included-grid">
+          <div class="included-item">
+            <span class="included-item-badge">Live</span>
+            100h+ instructor-led sessions
+          </div>
+          <div class="included-item">
+            <span class="included-item-badge">On-Demand</span>
+            200h+ recorded content &amp; deep-dives
+          </div>
+          <div class="included-item">
+            <span class="included-item-badge">Tailored</span>
+            Stream-specific assignments &amp; case studies
+          </div>
+        </div>
+        <div class="tools-row">
+          <strong>Tools covered:</strong> ChatGPT, Claude, Gemini, Perplexity, n8n, Zapier, Make, Midjourney, Runway, Replit, Lovable + more
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== COURSES ======================== -->
+  <section class="courses">
+    <div class="courses-inner">
+      <div class="courses-header">
+        <h2>A course for every stage of the journey.</h2>
+        <p class="body-md">Every Mellone course starts from zero, adapts to your field, and ends with something you built yourself.</p>
+      </div>
+
+      <div class="course-cards">
+        <!-- AI Nexus -->
+        <div class="course-card">
+          <div class="cc-header cc-header--nexus">
+            <div class="cc-badge">
+              <span class="cc-badge-num">Course 01</span>
+              <span class="cc-badge-sep"></span>
+              <span class="cc-badge-cat">C-Suite · Founders</span>
+            </div>
+            <div class="cc-name">AI Nexus</div>
+            <div class="cc-category-label">Strategic Leadership</div>
+          </div>
+          <div class="cc-body">
+            <p class="cc-desc">For founders and senior leaders who need to lead an AI transformation confidently. No prior AI knowledge required, starts from first principles and builds to a real 90-day roadmap.</p>
+            <ul class="cc-features">
+              <li class="cc-feat">Map AI opportunities across your organisation</li>
+              <li class="cc-feat">Build and present compelling AI business cases</li>
+              <li class="cc-feat">Automate key leadership and operational workflows</li>
+              <li class="cc-feat">Governance, ethics &amp; responsible AI deployment</li>
+              <li class="cc-feat">90-day implementation roadmap</li>
+            </ul>
+            <div class="cc-footer">
+              <span class="cc-duration">⏱ 20h Live + 200h On-Demand</span>
+              <a href="ai-nexus.html" class="cc-cta">View Course →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Elevate -->
+        <div class="course-card">
+          <div class="cc-header cc-header--elevate">
+            <div class="cc-badge">
+              <span class="cc-badge-num">Course 02</span>
+              <span class="cc-badge-sep"></span>
+              <span class="cc-badge-cat">Mid-Career · Founders</span>
+            </div>
+            <div class="cc-name">AI Elevate</div>
+            <div class="cc-category-label">Professional Mastery</div>
+          </div>
+          <div class="cc-body">
+            <p class="cc-desc">For professionals going beyond casual AI use, mastering advanced workflows, automation, and custom AI solutions tailored to their specific career stream. Starts from first principles.</p>
+            <ul class="cc-features">
+              <li class="cc-feat">Advanced prompt engineering frameworks</li>
+              <li class="cc-feat">AI-powered data analysis &amp; visualisation</li>
+              <li class="cc-feat">Workflow automation across your function</li>
+              <li class="cc-feat">Build custom AI solutions and agents</li>
+              <li class="cc-feat">Capstone project + industry certificate</li>
+            </ul>
+            <div class="cc-footer">
+              <span class="cc-duration">⏱ 100h Live + 200h On-Demand</span>
+              <a href="ai-elevate.html" class="cc-cta">View Course →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Launchpad -->
+        <div class="course-card">
+          <div class="cc-header cc-header--launchpad">
+            <div class="cc-badge">
+              <span class="cc-badge-num">Course 03</span>
+              <span class="cc-badge-sep"></span>
+              <span class="cc-badge-cat">Early Career · Students</span>
+            </div>
+            <div class="cc-name">AI Launchpad</div>
+            <div class="cc-category-label">Career Foundation</div>
+          </div>
+          <div class="cc-body">
+            <p class="cc-desc">For graduates and early-career professionals building a job-ready AI skillset from the ground up. Assumes zero knowledge, goes all the way through to no-code development and a portfolio-ready project.</p>
+            <ul class="cc-features">
+              <li class="cc-feat">How LLMs actually work, no jargon</li>
+              <li class="cc-feat">Prompt engineering from basics to advanced</li>
+              <li class="cc-feat">No-code app &amp; automation building</li>
+              <li class="cc-feat">AI for data, visuals, video &amp; multimedia</li>
+              <li class="cc-feat">Capstone project + industry certificate</li>
+            </ul>
+            <div class="cc-footer">
+              <span class="cc-duration">⏱ 100h Live + 200h On-Demand</span>
+              <a href="ai-launchpad.html" class="cc-cta">View Course →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CONSULTING ======================== -->
+  <section class="consulting-section">
+    <div class="consulting-inner">
+      <div class="consulting-header">
+        <div>
+          <h2>Strategy is only half the job.</h2>
+          <p class="body-md">We identify the highest-value AI opportunities inside your organisation, build the right solution, and implement it, across any function, any industry.</p>
+        </div>
+        <div class="consulting-cta-row">
+          <a href="contact.html" class="btn btn-primary">Book a Consultation</a>
+          <a href="consulting.html" class="btn btn-secondary">How It Works</a>
+        </div>
+      </div>
+
+      <div class="consulting-cards">
+        <div class="consulting-card">
+          <div class="oc-icon">🗺️</div>
+          <div class="oc-title">AI Opportunity Mapping</div>
+          <p class="oc-desc">Prioritised by value, effort, and readiness across your organisation.</p>
+        </div>
+        <div class="consulting-card">
+          <div class="oc-icon">⚙️</div>
+          <div class="oc-title">Workflow Automation</div>
+          <p class="oc-desc">Automate repetitive processes, from lead management to financial reporting.</p>
+        </div>
+        <div class="consulting-card">
+          <div class="oc-icon">🚀</div>
+          <div class="oc-title">End-to-End Implementation</div>
+          <p class="oc-desc">We stay until it works, integrated, adopted, and delivering results.</p>
+        </div>
+      </div>
+
+      <div class="where-we-work">
+        <div class="ww-title">Where we work</div>
+        <div class="ww-grid">
+          <div>
+            <div class="ww-group-label">By Function</div>
+            <div class="ww-tags">
+              <span class="ww-tag">Finance</span>
+              <span class="ww-tag">Marketing</span>
+              <span class="ww-tag">Sales</span>
+              <span class="ww-tag">HR</span>
+              <span class="ww-tag">Operations</span>
+              <span class="ww-tag">Product &amp; Tech</span>
+              <span class="ww-tag">Customer Service</span>
+              <span class="ww-tag">Supply Chain</span>
+              <span class="ww-tag">Legal</span>
+              <span class="ww-tag">Strategy</span>
+            </div>
+          </div>
+          <div>
+            <div class="ww-group-label">By Industry, we are industry agnostic</div>
+            <div class="ww-tags">
+              <span class="ww-tag">Financial Services</span>
+              <span class="ww-tag">Healthcare</span>
+              <span class="ww-tag">Retail</span>
+              <span class="ww-tag">Manufacturing</span>
+              <span class="ww-tag">Education</span>
+              <span class="ww-tag">Real Estate</span>
+              <span class="ww-tag">Travel &amp; Hospitality</span>
+              <span class="ww-tag">Media &amp; Telecoms</span>
+              <span class="ww-tag">Agriculture</span>
+              <span class="ww-tag">Professional Services</span>
+              <span class="ww-tag ww-tag--more">+ Any Industry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PATHWAYS ======================== -->
+  <section class="pathways">
+    <div class="pathways-inner">
+      <div class="pathways-header">
+        <h2>Find your path into AI.</h2>
+        <p class="body-md">Every course starts from zero, no prior AI knowledge needed. Pick the path that fits where you are today.</p>
+      </div>
+
+      <div class="pathway-cards">
+        <div class="pathway-card">
+          <span class="pathway-icon">🌐</span>
+          <div class="pathway-label">I am a...</div>
+          <div class="pathway-title">Founder or Senior Leader</div>
+          <p class="pathway-desc">"I need to lead an AI transformation, understanding the landscape, identifying opportunities, driving adoption, without becoming a technologist."</p>
+          <a href="ai-nexus.html" class="pathway-link">→ AI Nexus · 20h Live</a>
+        </div>
+        <div class="pathway-card">
+          <span class="pathway-icon">💼</span>
+          <div class="pathway-label">I am a...</div>
+          <div class="pathway-title">Mid-Career Professional</div>
+          <p class="pathway-desc">"I want to go from occasional AI use to genuine mastery, advanced automation and custom solutions tailored to my role and industry."</p>
+          <a href="ai-elevate.html" class="pathway-link">→ AI Elevate · 100h Live</a>
+        </div>
+        <div class="pathway-card">
+          <span class="pathway-icon">🎓</span>
+          <div class="pathway-label">I am a...</div>
+          <div class="pathway-title">Graduate or Early Career</div>
+          <p class="pathway-desc">"I want a genuine, job-ready AI skillset built from first principles, tailored to my career track, ending with a real project I can show employers."</p>
+          <a href="ai-launchpad.html" class="pathway-link">→ AI Launchpad · 100h Live</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROCESS ======================== -->
+  <section class="process">
+    <div class="process-inner">
+      <div class="process-header">
+        <h2>From first session to real transformation.</h2>
+        <p class="body-md">Every Mellone journey follows the same structure, learning becomes doing, doing becomes habit.</p>
+      </div>
+
+      <div class="process-steps">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-title">Find Your Path</div>
+          <p class="step-desc">Choose the programme that fits your level and role. Not sure? Talk to us, we'll point you in the right direction.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-title">Learn Live &amp; On-Demand</div>
+          <p class="step-desc">Instructor-led live sessions keep you engaged. 200h+ of recorded content lets you go deeper on your own schedule.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-title">Apply to Your World</div>
+          <p class="step-desc">Stream-specific assignments and industry case studies mean every exercise is relevant to your actual work.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-title">Keep Moving</div>
+          <p class="step-desc">For organisations, our consulting team takes over where training ends, implementing AI until it delivers measurable results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== BLOG ======================== -->
+  <section class="blog-section">
+    <div class="blog-inner">
+      <div class="blog-header">
+        <h2>What we're thinking about.</h2>
+        <a href="blog.html" class="btn btn-secondary">View all articles</a>
+      </div>
+
+      <div class="blog-grid">
+        <a href="blog-article.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-img">🤖</div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-cat">AI Strategy</span>
+              <span class="blog-card-time">8 min read</span>
+            </div>
+            <div class="blog-card-title">Why Most AI Implementations Fail, and What Separates the Ones That Don't</div>
+            <p class="blog-card-excerpt">The gap between a successful AI deployment and an abandoned pilot usually has nothing to do with the technology.</p>
+            <span class="blog-card-link">Read article →</span>
+          </div>
+        </a>
+        <a href="blog.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-img">🗺️</div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-cat">AI Strategy</span>
+              <span class="blog-card-time">6 min read</span>
+            </div>
+            <div class="blog-card-title">The AI Opportunity Map: How to Find Where AI Creates Real Value in Your Organisation</div>
+            <p class="blog-card-excerpt">Not every process benefits from AI. Here's a practical framework for identifying the opportunities worth pursuing.</p>
+            <span class="blog-card-link">Read article →</span>
+          </div>
+        </a>
+        <a href="blog.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-img">⚙️</div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-cat">Tools &amp; Techniques</span>
+              <span class="blog-card-time">5 min read</span>
+            </div>
+            <div class="blog-card-title">Claude vs ChatGPT for Professional Work: A Practical Comparison</div>
+            <p class="blog-card-excerpt">Both tools are capable. But they behave differently, and those differences matter depending on what you're using AI for.</p>
+            <span class="blog-card-link">Read article →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CTA ======================== -->
+  <section class="cta-section">
+    <div style="max-width: var(--max-width); margin: 0 auto;">
+      <h2>Ready to lead with AI?</h2>
+      <p>Whether you're an individual building skills or an organisation ready to transform, the first step is a conversation.</p>
+      <div class="cta-actions">
+        <a href="training.html" class="btn btn-white btn-lg">Explore Our Courses</a>
+        <a href="contact.html" class="btn btn-ghost-white btn-lg">Book a Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <div class="footer-logo-img">
+              <img src="assets/FullLogo_NoBuffer.png" alt="Mellone" />
+            </div>
+          </div>
+          <p class="footer-tagline">AI training and consulting for professionals and organisations ready to lead in an AI-first world.</p>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Training</div>
+          <a href="ai-nexus.html" class="footer-link">AI Nexus</a>
+          <a href="ai-elevate.html" class="footer-link">AI Elevate</a>
+          <a href="ai-launchpad.html" class="footer-link">AI Launchpad</a>
+          <a href="#" class="footer-link">For Colleges ↗</a>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Company</div>
+          <a href="consulting.html" class="footer-link">Consulting</a>
+          <a href="blog.html" class="footer-link">Blog</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Get in Touch</div>
+          <a href="mailto:hello@mellone.ai" class="footer-link">hello@mellone.ai</a>
+          <a href="https://linkedin.com/company/mellone" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="contact.html" class="footer-link">Book a Call</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Mellone. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

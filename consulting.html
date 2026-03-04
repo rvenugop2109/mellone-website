@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulting | Mellone</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- CONSULTING PAGE STYLES ---- */
+
+    /* HERO */
+    .page-hero {
+      padding: 96px 64px 80px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 64px;
+      align-items: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(36px, 4.5vw, 52px);
+      font-weight: 800;
+      color: var(--deep-blue);
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      margin-bottom: 18px;
+    }
+
+    .page-hero p {
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--mid-gray);
+      margin-bottom: 32px;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Hero right differentiators */
+    .differentiators {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .diff-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .diff-icon { font-size: 52px; flex-shrink: 0; margin-top: 2px; }
+
+    .diff-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 4px;
+    }
+
+    .diff-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--mid-gray);
+    }
+
+    /* THREE WAYS */
+    .three-ways {
+      padding: 96px 64px;
+      background: var(--off-white);
+    }
+
+    .three-ways-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .three-ways-header {
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    .three-ways-header h2 { margin-bottom: 12px; }
+
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sc-icon { font-size: 52px; margin-bottom: 16px; }
+
+    .sc-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 10px;
+    }
+
+    .sc-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+      margin-bottom: 20px;
+    }
+
+    .sc-examples {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .sc-example {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--mid-gray);
+      line-height: 1.45;
+    }
+
+    .sc-example::before {
+      content: '·';
+      color: var(--periwinkle);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* PROCESS */
+    .process-section {
+      padding: 96px 64px;
+    }
+
+    .process-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .process-header {
+      max-width: 660px;
+      margin-bottom: 56px;
+    }
+
+    .process-header h2 { margin-bottom: 12px; }
+
+    .process-note {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 12px;
+      font-style: italic;
+      color: var(--mid-gray);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+    }
+
+    .process-steps-v {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      position: relative;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 28px;
+      align-items: start;
+      padding-bottom: 32px;
+      position: relative;
+    }
+
+    .process-step:last-child { padding-bottom: 0; }
+
+    .ps-num-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .ps-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--deep-blue);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ps-line {
+      width: 2px;
+      background: var(--border);
+      flex: 1;
+      min-height: 40px;
+      margin-top: 4px;
+    }
+
+    .process-step:last-child .ps-line { display: none; }
+
+    .ps-content {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      padding-top: 12px;
+    }
+
+    .ps-icon { font-size: 52px; margin-bottom: 8px; }
+
+    .ps-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 4px;
+    }
+
+    .ps-subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--periwinkle);
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    .ps-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+      margin-bottom: 14px;
+    }
+
+    .ps-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ps-item {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mid-blue);
+      background: rgba(51,51,204,0.07);
+      border: 1px solid rgba(51,51,204,0.14);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* WHERE WE WORK */
+    .where-section {
+      padding: 96px 64px;
+      background: var(--off-white);
+    }
+
+    .where-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .where-header {
+      max-width: 620px;
+      margin-bottom: 48px;
+    }
+
+    .where-header h2 { margin-bottom: 12px; }
+
+    .where-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .where-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+    }
+
+    .where-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 14px;
+    }
+
+    .where-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .where-tag {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dark-navy);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .where-card-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+    }
+
+    /* TRAINING + CONSULTING */
+    .integration {
+      padding: 96px 64px;
+    }
+
+    .integration-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .integration-header {
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    .integration-header h2 { margin-bottom: 12px; }
+
+    .integration-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .int-point {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .int-point-icon { font-size: 52px; margin-bottom: 12px; }
+
+    .int-point-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    .int-point-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+    }
+
+    .integration-note {
+      font-size: 13px;
+      color: var(--mid-gray);
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+
+    .course-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .course-link-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+
+    .clc-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 6px;
+    }
+
+    .clc-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    .clc-desc {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--mid-gray);
+      margin-bottom: 14px;
+    }
+
+    .clc-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .clc-link:hover { color: var(--mid-blue); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .page-hero {
+        grid-template-columns: 1fr;
+        padding: 72px 40px 64px;
+        gap: 40px;
+      }
+      .service-cards,
+      .integration-points,
+      .course-links { grid-template-columns: 1fr 1fr; }
+      .three-ways,
+      .process-section,
+      .where-section,
+      .integration { padding: 72px 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 56px 20px 48px; }
+      .service-cards,
+      .where-grid,
+      .integration-points,
+      .course-links { grid-template-columns: 1fr; }
+      .three-ways,
+      .process-section,
+      .where-section,
+      .integration { padding: 56px 20px; }
+      .process-step { grid-template-columns: 40px 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/FullLogo_NoBuffer.png" alt="Mellone" />
+    </a>
+
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">
+          Services
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="consulting.html" class="nav-dropdown-item">Consulting</a>
+          <a href="training.html" class="nav-dropdown-item">Training</a>
+        </div>
+      </div>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">
+          Products
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="ai-nexus.html" class="nav-dropdown-item">AI Nexus</a>
+          <a href="ai-launchpad.html" class="nav-dropdown-item">AI Launchpad</a>
+          <a href="ai-elevate.html" class="nav-dropdown-item">AI Elevate</a>
+          <a href="https://campuslogix.in/" class="nav-dropdown-item" target="_blank" rel="noopener">For Colleges ↗</a>
+        </div>
+      </div>
+
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta">Talk to Us</a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="this.closest('.nav').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section style="background: var(--white); border-bottom: 1px solid var(--border);">
+    <div class="page-hero animate-fade-up">
+      <div>
+        <span class="eyebrow">AI Consulting &amp; Implementation</span>
+        <h1>Strategy is only half the job.</h1>
+        <p>Mellone identifies where AI creates the most value inside your organisation, then builds, integrates, and implements it. Across any function, any industry, end to end. We stay until it works.</p>
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-primary btn-lg">Book a Consultation Call</a>
+          <a href="#how-it-works" class="btn btn-secondary btn-lg">See How It Works</a>
+        </div>
+      </div>
+
+      <div class="differentiators">
+        <div class="diff-card">
+          <span class="diff-icon">🗺️</span>
+          <div>
+            <div class="diff-title">We start with your organisation, not AI</div>
+            <p class="diff-desc">Every engagement begins with mapping your processes, your people, and your priorities, before we touch a single tool.</p>
+          </div>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">⚙️</span>
+          <div>
+            <div class="diff-title">We build, not just advise</div>
+            <p class="diff-desc">Our team doesn't hand you a report and leave. We build the automations, integrations, and solutions, and stay until they're adopted and delivering.</p>
+          </div>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">🎓</span>
+          <div>
+            <div class="diff-title">Expert practitioners. Not career consultants.</div>
+            <p class="diff-desc">Mellone's consulting team are domain experts and AI practitioners with real implementation experience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== STATS ======================== -->
+  <div class="stats-strip">
+    <div class="stat-cell">
+      <span class="stat-icon">⚡</span>
+      <div>
+        <div class="stat-num text-deep-blue">10+</div>
+        <div class="stat-lbl">Functions Covered</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-icon">🌐</span>
+      <div>
+        <div class="stat-num text-deep-blue">10+</div>
+        <div class="stat-lbl">Industries Served</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-icon">🔗</span>
+      <div>
+        <div class="stat-num text-deep-blue">End-to-End</div>
+        <div class="stat-lbl">Strategy to Deployment</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-icon">🎓</span>
+      <div>
+        <div class="stat-num text-deep-blue">Expert-Led</div>
+        <div class="stat-lbl">Domain practitioners, not theorists</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THREE WAYS ======================== -->
+  <section class="three-ways">
+    <div class="three-ways-inner">
+      <div class="three-ways-header">
+        <span class="eyebrow">Our Services</span>
+        <h2>Three ways we work with organisations.</h2>
+        <p class="body-md">Every Mellone consulting engagement is scoped to what your organisation actually needs, not a fixed package. These are the three core areas we work across.</p>
+      </div>
+
+      <div class="service-cards">
+        <div class="service-card">
+          <div class="sc-icon">🗺️</div>
+          <div class="sc-title">AI Opportunity Mapping</div>
+          <p class="sc-desc">A structured discovery process that identifies where AI can create the most value in your organisation, prioritised by impact, effort, and readiness. The output is a clear, actionable roadmap, not a generic framework.</p>
+          <ul class="sc-examples">
+            <li class="sc-example">Process audit across functions and workflows</li>
+            <li class="sc-example">Prioritised opportunity matrix with ROI estimates</li>
+            <li class="sc-example">Quick-win vs long-term implementation roadmap</li>
+            <li class="sc-example">Stakeholder and change readiness assessment</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="sc-icon">⚙️</div>
+          <div class="sc-title">Workflow Automation</div>
+          <p class="sc-desc">We identify your most time-consuming, repetitive processes and automate them, connecting tools, building custom automations, and integrating them into your existing workflows.</p>
+          <ul class="sc-examples">
+            <li class="sc-example">Document processing and report generation</li>
+            <li class="sc-example">Lead management and CRM automation</li>
+            <li class="sc-example">Financial reconciliation and forecasting workflows</li>
+            <li class="sc-example">HR onboarding, screening, and communication</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="sc-icon">🤖</div>
+          <div class="sc-title">End-to-End Implementation</div>
+          <p class="sc-desc">For organisations ready to move beyond pilots, we design, build, integrate, and manage full AI solutions that deliver measurable results and remain in use.</p>
+          <ul class="sc-examples">
+            <li class="sc-example">Custom AI agents and internal chatbots</li>
+            <li class="sc-example">Cross-function AI workflow integration</li>
+            <li class="sc-example">Governance, compliance, and ethical AI frameworks</li>
+            <li class="sc-example">Training and change management for adoption</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROCESS ======================== -->
+  <section class="process-section" id="how-it-works">
+    <div class="process-inner">
+      <div class="process-header">
+        <span class="eyebrow">How We Work</span>
+        <h2>A process built around your organisation.</h2>
+        <p class="body-md">Every Mellone engagement starts with listening, not pitching. We learn how your organisation works, where the pain points are, and what success looks like to you.</p>
+        <span class="process-note">Engagement model: Engagements are scoped individually based on your organisation's size, needs, and starting point.</span>
+      </div>
+
+      <div class="process-steps-v">
+        <div class="process-step">
+          <div class="ps-num-col">
+            <div class="ps-num">1</div>
+            <div class="ps-line"></div>
+          </div>
+          <div class="ps-content">
+            <div class="ps-icon">🎯</div>
+            <div class="ps-title">Discovery</div>
+            <div class="ps-subtitle">We listen before we recommend</div>
+            <p class="ps-desc">A structured discovery session with key stakeholders, understanding your current processes, your team's capabilities, and your strategic goals.</p>
+            <div class="ps-items">
+              <span class="ps-item">Stakeholder interviews</span>
+              <span class="ps-item">Process mapping</span>
+              <span class="ps-item">Capability assessment</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="ps-num-col">
+            <div class="ps-num">2</div>
+            <div class="ps-line"></div>
+          </div>
+          <div class="ps-content">
+            <div class="ps-icon">📊</div>
+            <div class="ps-title">Opportunity Mapping</div>
+            <div class="ps-subtitle">We identify where AI actually helps</div>
+            <p class="ps-desc">Based on discovery, we produce a prioritised map of AI opportunities, ranked by value, effort, and readiness. Not everything should be automated.</p>
+            <div class="ps-items">
+              <span class="ps-item">Opportunity matrix</span>
+              <span class="ps-item">ROI estimates</span>
+              <span class="ps-item">Quick wins identified</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="ps-num-col">
+            <div class="ps-num">3</div>
+            <div class="ps-line"></div>
+          </div>
+          <div class="ps-content">
+            <div class="ps-icon">🏗️</div>
+            <div class="ps-title">Solution Design</div>
+            <div class="ps-subtitle">We design the right solution, not the most complex one</div>
+            <p class="ps-desc">We design AI solutions that fit your tools, your team, and your budget. Where possible, we use existing platforms. Where necessary, we build custom solutions.</p>
+            <div class="ps-items">
+              <span class="ps-item">Architecture design</span>
+              <span class="ps-item">Tool selection</span>
+              <span class="ps-item">Integration planning</span>
+              <span class="ps-item">Timeline and resourcing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="ps-num-col">
+            <div class="ps-num">4</div>
+            <div class="ps-line"></div>
+          </div>
+          <div class="ps-content">
+            <div class="ps-icon">⚙️</div>
+            <div class="ps-title">Build &amp; Integrate</div>
+            <div class="ps-subtitle">We build it, and connect it to how you actually work</div>
+            <p class="ps-desc">Our team builds the automations, agents, and integrations, testing with your real data and iterating based on your feedback.</p>
+            <div class="ps-items">
+              <span class="ps-item">Automation build</span>
+              <span class="ps-item">API and tool integration</span>
+              <span class="ps-item">Testing and QA</span>
+              <span class="ps-item">Iterative deployment</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="ps-num-col">
+            <div class="ps-num">5</div>
+            <div class="ps-line"></div>
+          </div>
+          <div class="ps-content">
+            <div class="ps-icon">🎓</div>
+            <div class="ps-title">Adoption &amp; Handover</div>
+            <div class="ps-subtitle">We stay until your team actually uses it</div>
+            <p class="ps-desc">Implementation isn't done when the build is done, it's done when your team is using the solution confidently and the benefits are measurable.</p>
+            <div class="ps-items">
+              <span class="ps-item">Team training</span>
+              <span class="ps-item">Documentation</span>
+              <span class="ps-item">Change management</span>
+              <span class="ps-item">Ongoing support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== WHERE WE WORK ======================== -->
+  <section class="where-section">
+    <div class="where-inner">
+      <div class="where-header">
+        <span class="eyebrow">Coverage</span>
+        <h2>Any function. Any industry.</h2>
+        <p class="body-md">If there's a repetitive process or a decision that could be sharper with AI, we can find it and build a solution for it.</p>
+      </div>
+
+      <div class="where-grid">
+        <div class="where-card">
+          <div class="where-card-label">By Function</div>
+          <div class="where-tags">
+            <span class="where-tag">Finance</span>
+            <span class="where-tag">Marketing</span>
+            <span class="where-tag">Sales</span>
+            <span class="where-tag">HR</span>
+            <span class="where-tag">Operations</span>
+            <span class="where-tag">Product &amp; Tech</span>
+            <span class="where-tag">Customer Service</span>
+            <span class="where-tag">Supply Chain</span>
+            <span class="where-tag">Legal</span>
+            <span class="where-tag">Strategy</span>
+          </div>
+          <p class="where-card-desc">We work across all business functions, from customer-facing teams to back-office operations. Every function has processes that AI can improve.</p>
+        </div>
+
+        <div class="where-card">
+          <div class="where-card-label">By Industry</div>
+          <div class="where-tags">
+            <span class="where-tag">Financial Services</span>
+            <span class="where-tag">Healthcare</span>
+            <span class="where-tag">Retail</span>
+            <span class="where-tag">Manufacturing</span>
+            <span class="where-tag">Education</span>
+            <span class="where-tag">Real Estate</span>
+            <span class="where-tag">Travel &amp; Hospitality</span>
+            <span class="where-tag">Media &amp; Telecoms</span>
+            <span class="where-tag">Agriculture</span>
+            <span class="where-tag">Professional Services</span>
+          </div>
+          <p class="where-card-desc">Our work spans sectors, from regulated industries like financial services and healthcare to high-velocity sectors like retail and hospitality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== TRAINING + CONSULTING ======================== -->
+  <section class="integration">
+    <div class="integration-inner">
+      <div class="integration-header">
+        <span class="eyebrow">The Complete Offer</span>
+        <h2>Two services. One complete offer.</h2>
+        <p class="body-md">Most organisations need both, the capability in their people and the solutions in their systems. Our training and consulting work together.</p>
+      </div>
+
+      <div class="integration-points">
+        <div class="int-point">
+          <div class="int-point-icon">🎯</div>
+          <div class="int-point-title">Train your people first</div>
+          <p class="int-point-desc">Build the internal AI literacy and capability your team needs to use, maintain, and extend the solutions we build.</p>
+        </div>
+        <div class="int-point">
+          <div class="int-point-icon">⚙️</div>
+          <div class="int-point-title">Then implement with confidence</div>
+          <p class="int-point-desc">Consulting engagements go further and faster when your team already understands how AI works and what it can and can't do.</p>
+        </div>
+        <div class="int-point">
+          <div class="int-point-icon">🎓</div>
+          <div class="int-point-title">Experts throughout, not generalists</div>
+          <p class="int-point-desc">Our consulting practitioners are domain and AI experts who work alongside your team, not parachuting in and leaving thick documentation.</p>
+        </div>
+      </div>
+
+      <p class="integration-note">Many of our consulting clients also enrol their teams in Mellone training. Both arms share the same standards and approach, making training and implementation genuine partners, not competing approaches.</p>
+
+      <div class="course-links">
+        <div class="course-link-card">
+          <div class="clc-num">Course 01</div>
+          <div class="clc-title">AI Nexus</div>
+          <p class="clc-desc">For the leadership team that needs to understand and drive the AI agenda, before or alongside consulting.</p>
+          <a href="ai-nexus.html" class="clc-link">View AI Nexus →</a>
+        </div>
+        <div class="course-link-card">
+          <div class="clc-num">Course 02</div>
+          <div class="clc-title">AI Elevate</div>
+          <p class="clc-desc">For the functional teams who will be using, maintaining, and extending AI solutions day to day.</p>
+          <a href="ai-elevate.html" class="clc-link">View AI Elevate →</a>
+        </div>
+        <div class="course-link-card">
+          <div class="clc-num">Course 03</div>
+          <div class="clc-title">AI Launchpad</div>
+          <p class="clc-desc">For organisations onboarding early-career talent who need to be AI-ready from day one.</p>
+          <a href="ai-launchpad.html" class="clc-link">View AI Launchpad →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CTA ======================== -->
+  <section class="cta-section">
+    <div style="max-width: var(--max-width); margin: 0 auto;">
+      <h2>The best first step is a 30-minute call.</h2>
+      <p>We don't do discovery-by-deck. Book a call with our consulting team, tell us what's on your mind, and we'll give you clear, honest feedback on where AI can help.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-white btn-lg">Book a Call Now</a>
+        <a href="mailto:hello@mellone.ai" class="btn btn-ghost-white btn-lg">Send Us a Message</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <div class="footer-logo-img">
+              <img src="assets/FullLogo_NoBuffer.png" alt="Mellone" />
+            </div>
+          </div>
+          <p class="footer-tagline">AI training and consulting for professionals and organisations ready to lead in an AI-first world.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Training</div>
+          <a href="ai-nexus.html" class="footer-link">AI Nexus</a>
+          <a href="ai-elevate.html" class="footer-link">AI Elevate</a>
+          <a href="ai-launchpad.html" class="footer-link">AI Launchpad</a>
+          <a href="#" class="footer-link">For Colleges ↗</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <a href="consulting.html" class="footer-link">Consulting</a>
+          <a href="blog.html" class="footer-link">Blog</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Get in Touch</div>
+          <a href="mailto:hello@mellone.ai" class="footer-link">hello@mellone.ai</a>
+          <a href="https://linkedin.com/company/mellone" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="contact.html" class="footer-link">Book a Call</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Mellone. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

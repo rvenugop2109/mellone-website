@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Mellone</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- BLOG LISTING ---- */
+
+    /* HERO */
+    .blog-hero {
+      padding: 80px 64px 72px;
+      border-bottom: 1px solid var(--border);
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .blog-hero h1 {
+      font-size: clamp(36px, 4.5vw, 52px);
+      font-weight: 800;
+      color: var(--deep-blue);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .blog-hero p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--mid-gray);
+      max-width: 560px;
+    }
+
+    /* FEATURED */
+    .featured-section {
+      padding: 64px 64px 0;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: white;
+      box-shadow: var(--shadow-card);
+    }
+
+    .fc-img {
+      background: var(--deep-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      min-height: 300px;
+    }
+
+    .fc-body {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .fc-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .fc-star {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: white;
+      background: var(--deep-blue);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .fc-cat {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+    }
+
+    .fc-time {
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    .fc-title {
+      font-size: clamp(20px, 2vw, 26px);
+      font-weight: 700;
+      color: var(--dark-navy);
+      line-height: 1.3;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .fc-excerpt {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--mid-gray);
+      margin-bottom: 24px;
+    }
+
+    .fc-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fc-date {
+      font-size: 12px;
+      color: var(--mid-gray);
+    }
+
+    .fc-link {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .fc-link:hover { color: var(--mid-blue); }
+
+    /* FILTERS */
+    .filters-bar {
+      padding: 40px 64px 0;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mid-gray);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--periwinkle);
+      color: var(--dark-navy);
+    }
+
+    .filter-btn.active {
+      background: var(--deep-blue);
+      border-color: var(--deep-blue);
+      color: white;
+    }
+
+    /* POST GRID */
+    .posts-section {
+      padding: 40px 64px 96px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .post-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .post-card:hover {
+      box-shadow: 0 8px 32px rgba(28,28,46,0.12);
+      transform: translateY(-3px);
+    }
+
+    .post-card-img {
+      height: 160px;
+      background: var(--off-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .post-card-body {
+      padding: 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .post-cat {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+    }
+
+    .post-time {
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    .post-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .post-excerpt {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--mid-gray);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .post-date {
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    .post-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--deep-blue);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .blog-hero,
+      .featured-section,
+      .filters-bar,
+      .posts-section { padding-left: 40px; padding-right: 40px; }
+      .post-grid { grid-template-columns: 1fr 1fr; }
+      .featured-card { grid-template-columns: 1fr; }
+      .fc-img { min-height: 200px; }
+    }
+
+    @media (max-width: 768px) {
+      .blog-hero,
+      .featured-section,
+      .filters-bar,
+      .posts-section { padding-left: 20px; padding-right: 20px; }
+      .blog-hero { padding-top: 56px; padding-bottom: 48px; }
+      .post-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo"><img src="assets/FullLogo_NoBuffer.png" alt="Mellone" /></a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">Services<svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="consulting.html" class="nav-dropdown-item">Consulting</a>
+          <a href="training.html" class="nav-dropdown-item">Training</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">Products<svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="ai-nexus.html" class="nav-dropdown-item">AI Nexus</a>
+          <a href="ai-launchpad.html" class="nav-dropdown-item">AI Launchpad</a>
+          <a href="ai-elevate.html" class="nav-dropdown-item">AI Elevate</a>
+          <a href="https://campuslogix.in/" class="nav-dropdown-item" target="_blank" rel="noopener">For Colleges ↗</a>
+        </div>
+      </div>
+      <a href="blog.html" class="nav-link active">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-right"><a href="contact.html" class="nav-cta">Talk to Us</a></div>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="this.closest('.nav').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- HERO -->
+  <section style="background: var(--white); border-bottom: 1px solid var(--border);">
+    <div class="blog-hero animate-fade-up">
+      <span class="eyebrow">Mellone Blog</span>
+      <h1>Thinking clearly about AI at work.</h1>
+      <p>Practical perspectives on AI strategy, tools, automation, and careers, written for professionals who want signal, not hype.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <div class="featured-section" style="padding-top: 56px;">
+    <span class="section-label">★ Featured</span>
+    <a href="blog-article.html" class="featured-card" style="text-decoration:none; color:inherit; display:grid;">
+      <div class="fc-img">🤖</div>
+      <div class="fc-body">
+        <div class="fc-meta">
+          <span class="fc-star">★ Featured</span>
+          <span class="fc-cat">AI Strategy</span>
+          <span class="fc-time">8 min read</span>
+        </div>
+        <div class="fc-title">Why Most AI Implementations Fail, and What Separates the Ones That Don't</div>
+        <p class="fc-excerpt">The gap between a successful AI deployment and an abandoned pilot usually has nothing to do with the technology. Here's what actually determines whether AI sticks inside an organisation.</p>
+        <div class="fc-footer">
+          <span class="fc-date">February 24, 2026</span>
+          <span class="fc-link">Read article →</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="setFilter('strategy', this)">AI Strategy</button>
+    <button class="filter-btn" onclick="setFilter('tools', this)">Tools &amp; Techniques</button>
+    <button class="filter-btn" onclick="setFilter('careers', this)">Careers &amp; Upskilling</button>
+    <button class="filter-btn" onclick="setFilter('industry', this)">Industry Perspectives</button>
+    <button class="filter-btn" onclick="setFilter('automation', this)">Automation</button>
+  </div>
+
+  <!-- POSTS -->
+  <div class="posts-section">
+    <div class="post-grid">
+      <a href="blog-article.html" class="post-card" data-cat="strategy">
+        <div class="post-card-img">🗺️</div>
+        <div class="post-card-body">
+          <div class="post-meta"><span class="post-cat">AI Strategy</span><span class="post-time">6 min read</span></div>
+          <div class="post-title">The AI Opportunity Map: How to Find Where AI Creates Real Value in Your Organisation</div>
+          <p class="post-excerpt">Not every process benefits from AI. Here's a practical framework for identifying the opportunities worth pursuing, and the ones to leave alone.</p>
+          <div class="post-footer">
+            <span class="post-date">Feb 18, 2026</span>
+            <span class="post-link">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="blog-article.html" class="post-card" data-cat="tools">
+        <div class="post-card-img">⚙️</div>
+        <div class="post-card-body">
+          <div class="post-meta"><span class="post-cat">Tools &amp; Techniques</span><span class="post-time">5 min read</span></div>
+          <div class="post-title">Claude vs ChatGPT for Professional Work: A Practical Comparison</div>
+          <p class="post-excerpt">Both tools are capable. But they behave differently, and those differences matter depending on what you're using AI for. Here's what we've found in practice.</p>
+          <div class="post-footer">
+            <span class="post-date">Feb 14, 2026</span>
+            <span class="post-link">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="blog-article.html" class="post-card" data-cat="careers">
+        <div class="post-card-img">🎓</div>
+        <div class="post-card-body">
+          <div class="post-meta"><span class="post-cat">Careers &amp; Upskilling</span><span class="post-time">7 min read</span></div>
+          <div class="post-title">The AI Skills That Actually Matter for Early-Career Professionals in 2026</div>
+          <p class="post-excerpt">Forget the hype. These are the specific AI capabilities that employers are actively looking for, and how to demonstrate you have them.</p>
+          <div class="post-footer">
+            <span class="post-date">Feb 10, 2026</span>
+            <span class="post-link">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="blog-article.html" class="post-card" data-cat="industry">
+        <div class="post-card-img">🏦</div>
+        <div class="post-card-body">
+          <div class="post-meta"><span class="post-cat">Industry Perspectives</span><span class="post-time">9 min read</span></div>
+          <div class="post-title">AI in Financial Services: Where It's Working, Where It Isn't, and What's Next</div>
+          <p class="post-excerpt">Financial services firms have been experimenting with AI for years. Here's an honest look at what's working, what isn't, and where the real value is.</p>
+          <div class="post-footer">
+            <span class="post-date">Feb 6, 2026</span>
+            <span class="post-link">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="blog-article.html" class="post-card" data-cat="automation">
+        <div class="post-card-img">📣</div>
+        <div class="post-card-body">
+          <div class="post-meta"><span class="post-cat">Automation</span><span class="post-time">6 min read</span></div>
+          <div class="post-title">Five Workflows Every Marketing Team Should Automate with AI, Right Now</div>
+          <p class="post-excerpt">These aren't theoretical. These are the five automations Mellone's consulting team deploys most often, and they work.</p>
+          <div class="post-footer">
+            <span class="post-date">Jan 30, 2026</span>
+            <span class="post-link">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="blog-article.html" class="post-card" data-cat="strategy">
+        <div class="post-card-img">📋</div>
+        <div class="post-card-body">
+          <div class="post-meta"><span class="post-cat">AI Strategy</span><span class="post-time">5 min read</span></div>
+          <div class="post-title">What a 90-Day AI Roadmap Actually Looks Like for a Mid-Sized Organisation</div>
+          <p class="post-excerpt">The 90-day plan is a deliverable in every AI Nexus cohort. Here's what a real one looks like, what goes in, what gets prioritised, and why.</p>
+          <div class="post-footer">
+            <span class="post-date">Jan 24, 2026</span>
+            <span class="post-link">Read →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div style="max-width: var(--max-width); margin: 0 auto;">
+      <h2>Want these insights applied to your organisation?</h2>
+      <p>Our consulting team works with organisations to map AI opportunities and build the right solutions. If something in this blog raised questions, we're happy to talk.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-white btn-lg">Book a Consultation</a>
+        <a href="training.html" class="btn btn-ghost-white btn-lg">Explore Our Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap"><div class="footer-logo-img"><img src="assets/FullLogo_NoBuffer.png" alt="Mellone" /></div></div>
+          <p class="footer-tagline">AI training and consulting for professionals and organisations ready to lead in an AI-first world.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Training</div>
+          <a href="ai-nexus.html" class="footer-link">AI Nexus</a>
+          <a href="ai-elevate.html" class="footer-link">AI Elevate</a>
+          <a href="ai-launchpad.html" class="footer-link">AI Launchpad</a>
+          <a href="#" class="footer-link">For Colleges ↗</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <a href="consulting.html" class="footer-link">Consulting</a>
+          <a href="blog.html" class="footer-link">Blog</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Get in Touch</div>
+          <a href="mailto:hello@mellone.ai" class="footer-link">hello@mellone.ai</a>
+          <a href="https://linkedin.com/company/mellone" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="contact.html" class="footer-link">Book a Call</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Mellone. All rights reserved.</span>
+        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setFilter(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cards = document.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+  <script src="nav.js"></script>
+</body>
+</html>
