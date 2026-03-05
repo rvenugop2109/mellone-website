@@ -553,8 +553,7 @@
   </footer>
 
   <script>
-    const AIRTABLE_TOKEN = 'patcr4kJC0VjNlI2I.e97258ceb52f1d438c3fa33e81ee8d2af7fc23c4ff976fd8deda1a326f0fa964';
-    const AIRTABLE_URL   = 'https://api.airtable.com/v0/appg1GFOdlB2WdEVF/Mellone%20Leads';
+    const SUBMIT_ENDPOINT = '/api/submit-form';
 
     let activeType = 'training';
 
@@ -638,13 +637,10 @@
       }
 
       try {
-        const res = await fetch(AIRTABLE_URL, {
+        const res = await fetch(SUBMIT_ENDPOINT, {
           method: 'POST',
-          headers: {
-            'Authorization': 'Bearer ' + AIRTABLE_TOKEN,
-            'Content-Type':  'application/json',
-          },
-          body: JSON.stringify({ fields }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(fields),
         });
 
         if (res.ok) {
