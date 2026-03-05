@@ -280,6 +280,34 @@
       margin-top: 6px;
     }
 
+    .form-status {
+      display: none;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .form-status.success {
+      display: block;
+      background: #ecfdf5;
+      border: 1.5px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .form-status.error {
+      display: block;
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .form-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .contact-main { grid-template-columns: 1fr; min-height: auto; }
@@ -393,28 +421,27 @@
       </div>
 
       <!-- FORM -->
-      <form class="form-body" name="contact-form" method="POST" netlify>
-        <input type="hidden" name="form-name" value="contact-form" />
+      <form class="form-body" id="contact-form" novalidate>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" name="first-name" placeholder="Jane" />
+            <label class="form-label" for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" class="form-input" placeholder="Jane" required />
           </div>
           <div class="form-group">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" name="last-name" placeholder="Smith" />
+            <label class="form-label" for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" class="form-input" placeholder="Smith" required />
           </div>
         </div>
 
         <div class="form-group full">
-          <label class="form-label">Work Email</label>
-          <input type="email" class="form-input" name="email" placeholder="jane@company.com" />
+          <label class="form-label" for="email">Work Email</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="jane@company.com" required />
         </div>
 
         <div class="form-group full phone-row">
           <div class="form-group">
-            <label class="form-label">Country Code</label>
-            <select class="form-select" name="country-code">
+            <label class="form-label" for="country-code">Country Code</label>
+            <select id="country-code" name="country-code" class="form-select">
               <option>🇲🇺 +230</option>
               <option>🇺🇸 +1</option>
               <option>🇬🇧 +44</option>
@@ -432,16 +459,16 @@
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Phone Number</label>
-            <input type="tel" class="form-input" name="phone" placeholder="+230 XXX XXXX" />
+            <label class="form-label" for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+230 XXX XXXX" />
           </div>
         </div>
 
         <!-- TRAINING FIELDS -->
         <div class="contextual-fields" id="training-fields">
           <div class="form-group full">
-            <label class="form-label">Which course are you interested in?</label>
-            <select class="form-select" name="course">
+            <label class="form-label" for="course-interest">Which course are you interested in?</label>
+            <select id="course-interest" name="course-interest" class="form-select">
               <option value="">Select a course</option>
               <option>AI Nexus, Strategic AI for Leaders</option>
               <option>AI Elevate, Professional AI Mastery</option>
@@ -450,8 +477,8 @@
             </select>
           </div>
           <div class="form-group full">
-            <label class="form-label">Enquiring for</label>
-            <select class="form-select" name="enquiring-for">
+            <label class="form-label" for="enquiring-for">Enquiring for</label>
+            <select id="enquiring-for" name="enquiring-for" class="form-select">
               <option value="">Select</option>
               <option>Myself</option>
               <option>A small team (2–10 people)</option>
@@ -463,12 +490,12 @@
         <!-- CONSULTING FIELDS -->
         <div class="contextual-fields hidden" id="consulting-fields">
           <div class="form-group full">
-            <label class="form-label">Organisation Name</label>
-            <input type="text" class="form-input" name="organisation" placeholder="Your company or organisation" />
+            <label class="form-label" for="organisation">Organisation Name</label>
+            <input type="text" id="organisation" name="organisation" class="form-input" placeholder="Your company or organisation" />
           </div>
           <div class="form-group full">
-            <label class="form-label">What are you looking to achieve?</label>
-            <select class="form-select" name="consulting-goal">
+            <label class="form-label" for="looking-to-achieve">What are you looking to achieve?</label>
+            <select id="looking-to-achieve" name="looking-to-achieve" class="form-select">
               <option value="">Select</option>
               <option>AI opportunity mapping and strategy</option>
               <option>Workflow automation</option>
@@ -479,11 +506,12 @@
         </div>
 
         <div class="form-group full">
-          <label class="form-label">Message (optional)</label>
-          <textarea class="form-textarea" name="message" placeholder="Tell us a bit more about what you're looking for..."></textarea>
+          <label class="form-label" for="message">Message (optional)</label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="Tell us a bit more about what you're looking for..."></textarea>
         </div>
 
         <button type="submit" class="form-submit" id="submit-btn">Send Training Enquiry</button>
+        <div id="form-status" class="form-status"></div>
         <p class="form-privacy">We'll respond within one business day. No spam, ever.</p>
       </form>
     </div>
@@ -525,30 +553,117 @@
   </footer>
 
   <script>
+    const AIRTABLE_TOKEN = 'patcr4kJC0VjNlI2I.e97258ceb52f1d438c3fa33e81ee8d2af7fc23c4ff976fd8deda1a326f0fa964';
+    const AIRTABLE_URL   = 'https://api.airtable.com/v0/appg1GFOdlB2WdEVF/Mellone%20Leads';
+
+    let activeType = 'training';
+
+    const SUBMIT_LABELS = {
+      training:   'Send Training Enquiry',
+      consulting: 'Send Consulting Enquiry',
+      general:    'Send Message',
+    };
+
     function setType(type) {
-      // Toggle buttons
+      activeType = type;
+
       ['training', 'consulting', 'general'].forEach(t => {
         document.getElementById('btn-' + t).classList.toggle('active', t === type);
       });
 
-      const tf = document.getElementById('training-fields');
-      const cf = document.getElementById('consulting-fields');
+      const tf  = document.getElementById('training-fields');
+      const cf  = document.getElementById('consulting-fields');
       const btn = document.getElementById('submit-btn');
 
-      if (type === 'training') {
-        tf.classList.remove('hidden');
-        cf.classList.add('hidden');
-        btn.textContent = 'Send Training Enquiry';
-      } else if (type === 'consulting') {
-        tf.classList.add('hidden');
-        cf.classList.remove('hidden');
-        btn.textContent = 'Send Consulting Enquiry';
-      } else {
-        tf.classList.add('hidden');
-        cf.classList.add('hidden');
-        btn.textContent = 'Send Message';
-      }
+      tf.classList.toggle('hidden', type !== 'training');
+      cf.classList.toggle('hidden', type !== 'consulting');
+      btn.textContent = SUBMIT_LABELS[type];
+
+      // Clear status when switching type
+      const status = document.getElementById('form-status');
+      status.className = 'form-status';
+      status.textContent = '';
     }
+
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const btn    = document.getElementById('submit-btn');
+      const status = document.getElementById('form-status');
+
+      // Basic validation
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName  = document.getElementById('last-name').value.trim();
+      const email     = document.getElementById('email').value.trim();
+
+      if (!firstName || !lastName || !email) {
+        status.className  = 'form-status error';
+        status.textContent = 'Please fill in your first name, last name, and email.';
+        return;
+      }
+
+      // Loading state
+      btn.disabled    = true;
+      btn.textContent = 'Sending...';
+      status.className  = 'form-status';
+      status.textContent = '';
+
+      // Build Airtable fields — only include non-empty values
+      const fields = {
+        'First Name':   firstName,
+        'Last Name':    lastName,
+        'Email':        email,
+        'Country Code': document.getElementById('country-code').value,
+        'Enquiry Type': activeType.charAt(0).toUpperCase() + activeType.slice(1),
+      };
+
+      const phone = document.getElementById('phone').value.trim();
+      if (phone) fields['Phone'] = phone;
+
+      const message = document.getElementById('message').value.trim();
+      if (message) fields['Message'] = message;
+
+      if (activeType === 'training') {
+        const course = document.getElementById('course-interest').value;
+        const enqFor = document.getElementById('enquiring-for').value;
+        if (course) fields['Course Interest'] = course;
+        if (enqFor) fields['Enquiring For']   = enqFor;
+      }
+
+      if (activeType === 'consulting') {
+        const org  = document.getElementById('organisation').value.trim();
+        const goal = document.getElementById('looking-to-achieve').value;
+        if (org)  fields['Organisation']      = org;
+        if (goal) fields['Looking to Achieve'] = goal;
+      }
+
+      try {
+        const res = await fetch(AIRTABLE_URL, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + AIRTABLE_TOKEN,
+            'Content-Type':  'application/json',
+          },
+          body: JSON.stringify({ fields }),
+        });
+
+        if (res.ok) {
+          status.className  = 'form-status success';
+          status.textContent = "Your message has been sent. We'll be in touch within one business day.";
+          e.target.reset();
+          setType(activeType);
+        } else {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error?.message || 'Unexpected error');
+        }
+      } catch (err) {
+        status.className  = 'form-status error';
+        status.textContent = 'Sorry, something went wrong. Please try again or email us directly at hi@mellone.ai.';
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = SUBMIT_LABELS[activeType];
+      }
+    });
   </script>
 
   <script src="nav.js"></script>
